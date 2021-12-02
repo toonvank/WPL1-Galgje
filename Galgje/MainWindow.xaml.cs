@@ -28,7 +28,44 @@ namespace Galgje
         {
             InitializeComponent();
         }
+        private void stickmanVerdwijn()
+        {
+            //Dit zorgt ervoor dat de stickman verwijnt
+            one.Visibility = Visibility.Hidden;
+            two.Visibility = Visibility.Hidden;
+            three.Visibility = Visibility.Hidden;
+            four.Visibility = Visibility.Hidden;
+            five.Visibility = Visibility.Hidden;
+            six.Visibility = Visibility.Hidden;
+            seven.Visibility = Visibility.Hidden;
+            eight.Visibility = Visibility.Hidden;
+            nine.Visibility = Visibility.Hidden;
+            ten.Visibility = Visibility.Hidden;
+        }
 
+        private void letterMethod(string gekozenLetter)
+        {
+            //deze wordt opgeroepen als een er op een letter van het virtueel toestenbord gedrukt wordt
+            letter = string.Empty;
+            if (verberg == true)
+            {
+                txtLetter.Text += gekozenLetter;
+            }
+            else
+            {
+                txtResultaat.Text += "*";
+                woord += gekozenLetter;
+            }
+            letter = gekozenLetter;
+        }
+
+        private void eindbuttons(string status)
+        {
+            //dit gebeurd er als speler gewonnen of verloren heeft
+            MessageBox.Show(status);
+            btnRaad.IsEnabled = false;
+            keys.IsEnabled = false;
+        }
         private void btnVerberg_Click(object sender, RoutedEventArgs e)
         {
             verberg = true;
@@ -43,7 +80,6 @@ namespace Galgje
             lblFout.Visibility = Visibility.Visible;
             txtResultaat.Text = string.Empty;
             txtLetter.Visibility = Visibility.Visible;
-
             //lijntjes genereren
             char[] lijntjes = woord.ToCharArray();
             int lengteLijntjes = lijntjes.Length;
@@ -114,449 +150,185 @@ namespace Galgje
                 counterr--;
                 if (counterr ==0)
                 {
-                    MessageBox.Show("U heeft verloren");
-                    btnRaad.IsEnabled = false;
-                    keys.IsEnabled = false;
+                    eindbuttons("U heeft verloren.");
                 }
             }
             if (txtResultaat.Text == woord)
             {
-                MessageBox.Show("U heeft gewonnen!");
-                btnRaad.IsEnabled = false;
-                keys.IsEnabled = false;
+                eindbuttons("U heeft gewonnen!");
             }
         }
+
         private void btnNieuw_Click(object sender, RoutedEventArgs e)
         {
             btnRaad.IsEnabled = true;
             verberg = false;
+            keys.IsEnabled = true;
             woord = string.Empty;
             geradenWoord = string.Empty;
+            txtResultaat.Text = string.Empty;
+            txtLetter.Text = string.Empty;
+
             lblNietGeraden.Visibility = Visibility.Hidden;
             lblGeraden.Visibility = Visibility.Hidden;
             lblLevens.Visibility = Visibility.Hidden;
             lblJuist.Visibility = Visibility.Hidden;
             lblFout.Visibility = Visibility.Hidden;
-            txtResultaat.Text = string.Empty;
-            txtLetter.Text = string.Empty;
+            txtLetter.Visibility = Visibility.Hidden;
             lblWoord.Visibility = Visibility.Visible;
             btnVerberg.Visibility = Visibility.Visible;
+
+            
+            
             txtResultaat.Background = Brushes.White;
             txtLetter.Background = Brushes.White;
-            keys.IsEnabled = true;
+            
             lblJuist.Content = "Juiste:";
             lblFout.Content = "Foute:";
+
             juist = String.Empty;
             fout = String.Empty;
-            txtLetter.Visibility = Visibility.Hidden;
+
+            
             counterr = 10;
             counter = 1;
 
-            //stickman laten verdwijnen
-            one.Visibility = Visibility.Hidden;
-            two.Visibility = Visibility.Hidden;
-            three.Visibility = Visibility.Hidden;
-            four.Visibility = Visibility.Hidden;
-            five.Visibility = Visibility.Hidden;
-            six.Visibility = Visibility.Hidden;
-            seven.Visibility = Visibility.Hidden;
-            eight.Visibility = Visibility.Hidden;
-            nine.Visibility = Visibility.Hidden;
-            ten.Visibility = Visibility.Hidden;
+            stickmanVerdwijn();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "a";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "a";
-            }
-            letter = "a";
+            letterMethod("a");
         }
 
         private void b(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "b";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "b";
-            }
-            letter = "b";
+            letterMethod("b");
         }
 
         private void c(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "c";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "c";
-            }
-            letter = "c";
+            letterMethod("c");
         }
 
         private void d(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "d";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "d";
-            }
-            letter = "d";
+            letterMethod("d");
         }
 
         private void e(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "e";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "e";
-            }
-            letter = "e";
+            letterMethod("e");
         }
 
         private void f(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "f";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "f";
-            }
-            letter = "f";
+            letterMethod("f");
         }
 
         private void g(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "g";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "g";
-            }
-            letter = "g";
+            letterMethod("g");
         }
 
         private void h(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "h";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "h";
-            }
-            letter = "h";
+            letterMethod("h");
         }
 
         private void i(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "i";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "i";
-            }
-            letter = "i";
+            letterMethod("i");
         }
 
         private void j(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "j";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "j";
-            }
-            letter = "j";
+            letterMethod("j");
         }
 
         private void k(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "k";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "k";
-            }
-            letter = "k";
+            letterMethod("k");
         }
 
         private void l(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "l";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "l";
-            }
-            letter = "l";
+            letterMethod("l");
         }
 
         private void m(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "m";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "m";
-            }
-            letter = "m";
+            letterMethod("m");
         }
 
         private void n(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "n";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "n";
-            }
-            letter = "n";
+            letterMethod("n");
         }
 
         private void o(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "o";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "o";
-            }
-            letter = "o";
+            letterMethod("o");
         }
 
         private void p(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "p";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "p";
-            }
-            letter = "p";
+            letterMethod("p");
         }
 
         private void q(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "q";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "q";
-            }
-            letter = "q";
+            letterMethod("q");
         }
 
         private void r(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "r";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "r";
-            }
-            letter = "r";
+            letterMethod("r");
         }
 
         private void s(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "s";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "s";
-            }
-            letter = "s";
+            letterMethod("s");
         }
 
         private void t(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "t";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "t";
-            }
-            letter = "t";
+            letterMethod("t");
         }
 
         private void u(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "u";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "u";
-            }
-            letter = "u";
+            letterMethod("u");
         }
 
         private void v(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "v";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "v";
-            }
-            letter = "v";
+            letterMethod("v");
         }
 
         private void w(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "w";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "w";
-            }
-            letter = "w";
+            letterMethod("w");
         }
 
         private void x(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "x";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "x";
-            }
-            letter = "x";
+            letterMethod("x");
         }
 
         private void y(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "y";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "y";
-            }
-            letter = "y";
+            letterMethod("y");
         }
 
         private void z(object sender, RoutedEventArgs e)
         {
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += "z";
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += "z";
-            }
-            letter = "z";
+            letterMethod("z");
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            //backspace knop die niet meer bestaat
             txtResultaat.Text = txtResultaat.Text.Substring(0, txtResultaat.Text.Length - 1);
         }
 
@@ -579,6 +351,9 @@ namespace Galgje
             lblFout.Content = $"Foute:{fout}";
             lblJuist.Content = $"Juiste:{juist}";
             lblLevens.Content = $"{counterr} levens";
+
+            //oude methode om volledig woord te vergelijken
+
             //if (woord != geradenwoord)
             //{
             //    levens -= 1;
