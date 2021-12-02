@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Galgje"
         mc:Ignorable="d"
-        Title="MainWindow" Height="514" Width="492">
+        Title="Galgje" Height="514" Width="492">
     <Grid x:Name="window">
         <Grid.RowDefinitions>
             <RowDefinition Height="229*"/>

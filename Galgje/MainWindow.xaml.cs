@@ -150,17 +150,20 @@ namespace Galgje
                 counterr--;
                 if (counterr ==0)
                 {
+                    window.Background = Brushes.Red;
                     eindbuttons("U heeft verloren.");
                 }
             }
             if (txtResultaat.Text == woord)
             {
+                window.Background = Brushes.Green;
                 eindbuttons("U heeft gewonnen!");
             }
         }
 
         private void btnNieuw_Click(object sender, RoutedEventArgs e)
         {
+            window.Background = Brushes.White;
             btnRaad.IsEnabled = true;
             verberg = false;
             keys.IsEnabled = true;
