@@ -1,0 +1,77 @@
+﻿<Window x:Name="Galgje" x:Class="Galgje.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Galgje"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="514" Width="492">
+    <Grid x:Name="window">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="229*"/>
+            <RowDefinition Height="126*"/>
+            <RowDefinition Height="79*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Margin="0,2,0,0" Grid.Row="2">
+            <Button x:Name="btnVerberg" Content="Verberg" Click="btnVerberg_Click"/>
+            <Button x:Name="btnRaad" Content="Raad" Click="btnRaad_Click" IsEnabled="False"/>
+            <Button x:Name="btnNieuw" Content="Nieuw" Click="btnNieuw_Click"/>
+            <Button x:Name="btnExit" Content="Exit" Click="btnExit_Click"/>
+        </StackPanel>
+        <WrapPanel x:Name="keys" Grid.Row="1" Margin="0,1,0,0" HorizontalAlignment="Center">
+            <Button Content="a" Width="40px" FontSize="20" Margin="5px" Click="Button_Click"/>
+            <Button Content="b" Width="40px" FontSize="20" Margin="5px" Click="b"/>
+            <Button Content="c" Width="40px" FontSize="20" Margin="5px" Click="c"/>
+            <Button Content="d" Width="40px" FontSize="20" Margin="5px" Click="d"/>
+            <Button Content="e" Width="40px" FontSize="20" Margin="5px" Click="e"/>
+            <Button Content="f" Width="40px" FontSize="20" Margin="5px" Click="f"/>
+            <Button Content="g" Width="40px" FontSize="20" Margin="5px" Click="g"/>
+            <Button Content="h" Width="40px" FontSize="20" Margin="5px" Click="h"/>
+            <Button Content="i" Width="40px" FontSize="20" Margin="5px" Click="i"/>
+            <Button Content="j" Width="40px" FontSize="20" Margin="5px" Click="j"/>
+            <Button Content="k" Width="40px" FontSize="20" Margin="5px" Click="k"/>
+            <Button Content="l" Width="40px" FontSize="20" Margin="5px" Click="l"/>
+            <Button Content="m" Width="40px" FontSize="20" Margin="5px" Click="m"/>
+            <Button Content="n" Width="40px" FontSize="20" Margin="5px" Click="n"/>
+            <Button Content="o" Width="40px" FontSize="20" Margin="5px" Click="o"/>
+            <Button Content="p" Width="40px" FontSize="20" Margin="5px" Click="p"/>
+            <Button Content="q" Width="40px" FontSize="20" Margin="5px" Click="q"/>
+            <Button Content="r" Width="40px" FontSize="20" Margin="5px" Click="r"/>
+            <Button Content="s" Width="40px" FontSize="20" Margin="5px" Click="s"/>
+            <Button Content="t" Width="40px" FontSize="20" Margin="5px " Click="t"/>
+            <Button Content="u" Width="40px" FontSize="20" Margin="5px" Click="u"/>
+            <Button Content="v" Width="40px" FontSize="20" Margin="5px" Click="v"/>
+            <Button Content="w" Width="40px" FontSize="20" Margin="5px" Click="w"/>
+            <Button Content="x" Width="40px" FontSize="20" Margin="5px" Click="x"/>
+            <Button Content="y" Width="40px" FontSize="20" Margin="5px" Click="y"/>
+            <Button Content="z" Width="40px" FontSize="20" Margin="5px" Click="z"/>
+        </WrapPanel>
+        <TextBox x:Name="txtResultaat" HorizontalAlignment="Center" Margin="0,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="430" Height="129" FontSize="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Focusable="False" Visibility="Visible"/>
+        <Label x:Name="lblWoord" Content="Geef een geheim woord in" HorizontalAlignment="Center" Margin="0,33,0,0" VerticalAlignment="Top" FontSize="30" Width="430" HorizontalContentAlignment="Center" Visibility="Visible"/>
+        <Label x:Name="lblLevens" Content="10 levens" HorizontalAlignment="Left" Margin="20,65,0,0" VerticalAlignment="Top" FontSize="20" Width="116" HorizontalContentAlignment="Center" Visibility="Hidden"/>
+        <Label x:Name="lblGeraden" Content="Hoera! Je heb hem geraden!" HorizontalAlignment="Left" Margin="20,44,0,0" VerticalAlignment="Top" FontSize="30" Width="430" HorizontalContentAlignment="Center" Visibility="Hidden"/>
+        <Label x:Name="lblNietGeraden" Content="Je hebt het woord niet op tijd geraden." HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="25" Width="460" HorizontalContentAlignment="Center" Visibility="Hidden"/>
+        <Label x:Name="lblJuist" Content="Juiste:" HorizontalAlignment="Left" Margin="180,65,0,0" VerticalAlignment="Top" FontSize="20" Width="116" HorizontalContentAlignment="Center" Visibility="Hidden"/>
+        <Label x:Name="lblFout" Content="Foute:" HorizontalAlignment="Left" Margin="321,65,0,0" VerticalAlignment="Top" FontSize="20" Width="116" HorizontalContentAlignment="Center" Visibility="Hidden"/>
+        <TextBox x:Name="txtLetter" HorizontalAlignment="Left" Margin="204,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="67" Height="47" FontSize="30" IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden"/>
+        <Image x:Name="one" Margin="314,233,94,17" Source="/1.png" Stretch="Fill" Visibility="Hidden"/>
+        <Image x:Name="two" Margin="343,130,123,17" Source="/2.png" Stretch="Fill" Visibility="Hidden"/>
+        <Image x:Name="three" Margin="349,130,57,118" Source="/3.png" Stretch="Fill" Visibility="Hidden"/>
+        <Image x:Name="four" Margin="349,126,89,67" Source="/4.png" Stretch="Fill" Visibility="Hidden"/>
+        <Image x:Name="five" Margin="413,131,57,94" Source="/5.png" Stretch="Fill" Visibility="Hidden"/>
+        <Image x:Name="six" Margin="405,155,49,69" Source="/6.png" Stretch="Fill" Visibility="Hidden"/>
+        <Image x:Name="seven" Margin="403,181,47,51" Source="/7.png" Stretch="Fill" Visibility="Hidden"/>
+        <Image x:Name="eight" Margin="383,196,55,22" Source="/8.png" Stretch="Fill" Visibility="Hidden"/>
+        <Image x:Name="nine" Margin="413,197,23,21" Source="/9.png" Stretch="Fill" Visibility="Hidden" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="7.905"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image x:Name="ten" Margin="380,186,24,58" Source="/10.png" Stretch="Fill" Visibility="Hidden"/>
+    </Grid>
+</Window>
