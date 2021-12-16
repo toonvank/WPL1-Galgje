@@ -23,7 +23,7 @@ namespace Galgje
     public partial class MainWindow : Window
     {
         string woord, geradenWoord, juist, fout, letter, lijnen;
-        int counter = 1, counterr=10, maxTijd=11, random;
+        int counter = 1, counterr=10, maxTijd=11, random, tijdmonitor;
         DispatcherTimer Tikker = new DispatcherTimer();
         bool verberg = false, gelijk = false;
         Random rndGetal = new Random();
@@ -131,6 +131,36 @@ namespace Galgje
             "schijn",
             "sousafoon"
         };
+        private string[] alfabet = new string[]
+        {
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g",
+            "h",
+            "i",
+            "j",
+            "k",
+            "l",
+            "m",
+            "n",
+            "o",
+            "p",
+            "q",
+            "r",
+            "s",
+            "t",
+            "u",
+            "v",
+            "w",
+            "x",
+            "y",
+            "z"
+        };
+
         public MainWindow()
         {
             InitializeComponent();
@@ -187,8 +217,8 @@ namespace Galgje
             // Timer laten aflopen om de seconde.
             Tikker.Tick += new EventHandler(DispatcherTimer_Tick);
             Tikker.Interval = new TimeSpan(0, 0, 1);
-            maxTijd = 11;
             Tikker.Start();
+            maxTijd = 11;
             lblTimer.Content = maxTijd;
         }
         private void DispatcherTimer_Tick(object sender, EventArgs e)
@@ -224,13 +254,24 @@ namespace Galgje
         }
         private void btnVerberg_Click(object sender, RoutedEventArgs e)
         {
-            Timer();
+            tijdmonitor += 1;
+            //voorkomt dat meerdere timer instances gestart worden
+            if (tijdmonitor==1)
+            {
+                Timer();
+            }
+            else
+            {
+                Tikker.Start();
+            }
             verberg = true;
             //raadknop verbergen
             btnRaad.IsEnabled = true;
             //eerste knoppen verbergen
             btnVerberg.Visibility = Visibility.Hidden;
             lblWoord.Visibility = Visibility.Hidden;
+            btnHint.Visibility = Visibility.Visible;
+            rndSingle.Visibility = Visibility.Hidden;
             //labels laten tonen
             lblLevens.Visibility = Visibility.Visible;
             lblJuist.Visibility = Visibility.Visible;
@@ -339,6 +380,7 @@ namespace Galgje
             lblWoord.Visibility = Visibility.Visible;
             btnVerberg.Visibility = Visibility.Visible;
             rndSingle.Visibility = Visibility.Visible;
+            btnHint.Visibility = Visibility.Hidden;
 
 
 
@@ -355,6 +397,7 @@ namespace Galgje
             counterr = 10;
             counter = 1;
             maxTijd = 11;
+            
             lblTimer.Visibility = Visibility.Hidden;
             rndSingle.IsChecked = false;
             Tikker.Stop();

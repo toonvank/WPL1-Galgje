@@ -75,5 +75,6 @@
         <Image x:Name="ten" Margin="380,186,24,58" Source="/10.png" Stretch="Fill" Visibility="Hidden"/>
         <Label x:Name="lblTimer" Content="00:10" HorizontalAlignment="Left" Margin="291,4,0,0" VerticalAlignment="Top" Height="50" Width="85" FontSize="30" Visibility="Hidden"/>
         <RadioButton x:Name="rndSingle" Content="Single Player" HorizontalAlignment="Left" Margin="198,26,0,0" VerticalAlignment="Top" Checked="rndSingle_Checked"/>
+        <Button x:Name="btnHint" Content="Hint" HorizontalAlignment="Left" Margin="119,19,0,0" VerticalAlignment="Top" FontSize="17" Visibility="Hidden"/>
     </Grid>
 </Window>
