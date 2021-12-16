@@ -47,7 +47,7 @@
             <Button Content="z" Width="40px" FontSize="20" Margin="5px" Click="z"/>
         </WrapPanel>
         <TextBox x:Name="txtResultaat" HorizontalAlignment="Center" Margin="0,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="430" Height="129" FontSize="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Focusable="False" Visibility="Visible"/>
-        <Label x:Name="lblWoord" Content="Geef een geheim woord in" HorizontalAlignment="Center" Margin="0,33,0,0" VerticalAlignment="Top" FontSize="30" Width="430" HorizontalContentAlignment="Center" Visibility="Visible"/>
+        <Label x:Name="lblWoord" Content="Geef een geheim woord in" HorizontalAlignment="Center" Margin="0,46,0,0" VerticalAlignment="Top" FontSize="30" Width="430" HorizontalContentAlignment="Center" Visibility="Visible"/>
         <Label x:Name="lblLevens" Content="10 levens" HorizontalAlignment="Left" Margin="20,65,0,0" VerticalAlignment="Top" FontSize="20" Width="116" HorizontalContentAlignment="Center" Visibility="Hidden"/>
         <Label x:Name="lblGeraden" Content="Hoera! Je heb hem geraden!" HorizontalAlignment="Left" Margin="20,44,0,0" VerticalAlignment="Top" FontSize="30" Width="430" HorizontalContentAlignment="Center" Visibility="Hidden"/>
         <Label x:Name="lblNietGeraden" Content="Je hebt het woord niet op tijd geraden." HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="25" Width="460" HorizontalContentAlignment="Center" Visibility="Hidden"/>
@@ -74,5 +74,6 @@
         </Image>
         <Image x:Name="ten" Margin="380,186,24,58" Source="/10.png" Stretch="Fill" Visibility="Hidden"/>
         <Label x:Name="lblTimer" Content="00:10" HorizontalAlignment="Left" Margin="291,4,0,0" VerticalAlignment="Top" Height="50" Width="85" FontSize="30" Visibility="Hidden"/>
+        <RadioButton x:Name="rndSingle" Content="Single Player" HorizontalAlignment="Left" Margin="198,26,0,0" VerticalAlignment="Top" Checked="rndSingle_Checked"/>
     </Grid>
 </Window>

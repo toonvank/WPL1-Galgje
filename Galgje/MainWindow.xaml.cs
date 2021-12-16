@@ -23,9 +23,114 @@ namespace Galgje
     public partial class MainWindow : Window
     {
         string woord, geradenWoord, juist, fout, letter, lijnen;
-        int counter = 1, counterr=10, maxTijd=11;
+        int counter = 1, counterr=10, maxTijd=11, random;
         DispatcherTimer Tikker = new DispatcherTimer();
         bool verberg = false, gelijk = false;
+        Random rndGetal = new Random();
+
+        private string[] galgjeWoorden = new string[]
+        {
+            "grafeem",
+            "tjiftjaf",
+            "maquette",
+            "kitsch",
+            "pochet",
+            "convocaat",
+            "jakkeren",
+            "collaps",
+            "zuivel",
+            "cesium",
+            "voyant",
+            "spitten",
+            "pancake",
+            "gietlepel",
+            "karwats",
+            "dehydreren",
+            "viswijf",
+            "flater",
+            "cretonne",
+            "sennhut",
+            "tichel",
+            "wijten",
+            "cadeau",
+            "trotyl",
+            "chopper",
+            "pielen",
+            "vigeren",
+            "vrijuit",
+            "dimorf",
+            "kolchoz",
+            "janhen",
+            "plexus",
+            "borium",
+            "ontweien",
+            "quiche",
+            "ijverig",
+            "mecenaat",
+            "falset",
+            "telexen",
+            "hieruit",
+            "femelaar",
+            "cohesie",
+            "exogeen",
+            "plebejer",
+            "opbouw",
+            "zodiak",
+            "volder",
+            "vrezen",
+            "convex",
+            "verzenden",
+            "ijstijd",
+            "fetisj",
+            "gerekt",
+            "necrose",
+            "conclaaf",
+            "clipper",
+            "poppetjes",
+            "looikuip",
+            "hinten",
+            "inbreng",
+            "arbitraal",
+            "dewijl",
+            "kapzaag",
+            "welletjes",
+            "bissen",
+            "catgut",
+            "oxymoron",
+            "heerschaar",
+            "ureter",
+            "kijkbuis",
+            "dryade",
+            "grofweg",
+            "laudanum",
+            "excitatie",
+            "revolte",
+            "heugel",
+            "geroerd",
+            "hierbij",
+            "glazig",
+            "pussen",
+            "liquide",
+            "aquarium",
+            "formol",
+            "kwelder",
+            "zwager",
+            "vuldop",
+            "halfaap",
+            "hansop",
+            "windvaan",
+            "bewogen",
+            "vulstuk",
+            "efemeer",
+            "decisief",
+            "omslag",
+            "prairie",
+            "schuit",
+            "weivlies",
+            "ontzeggen",
+            "schijn",
+            "sousafoon"
+        };
         public MainWindow()
         {
             InitializeComponent();
@@ -67,6 +172,14 @@ namespace Galgje
             MessageBox.Show(status);
             btnRaad.IsEnabled = false;
             keys.IsEnabled = false;
+            Tikker.Stop();
+            txtResultaat.Text = String.Empty;
+            lblLevens.Visibility = Visibility.Hidden;
+            lblJuist.Visibility = Visibility.Hidden;
+            lblFout.Visibility = Visibility.Hidden;
+            lblTimer.Visibility = Visibility.Hidden;
+            counterr = 10;
+            stickmanVerdwijn();
         }
         private void Timer()
         {
@@ -103,6 +216,10 @@ namespace Galgje
                 maxTijd = 11;
                 MessageBox.Show("Tijd is om");
                 window.Background = Brushes.White;
+                if (counterr == 0)
+                {
+                    Compare();
+                }
             }
         }
         private void btnVerberg_Click(object sender, RoutedEventArgs e)
@@ -125,7 +242,7 @@ namespace Galgje
             int lengteLijntjes = lijntjes.Length;
             for (int i = 0; i < lengteLijntjes; i++)
             {
-                txtResultaat.Text += "_";
+                txtResultaat.Text += "*";
             }
         }
 
@@ -191,14 +308,14 @@ namespace Galgje
                 if (counterr ==0)
                 {
                     window.Background = Brushes.Red;
-                    eindbuttons("U heeft verloren.");
+                    eindbuttons($"U heeft verloren. Het juiste woord was {woord}");
                 }
             }
             if (txtResultaat.Text == woord)
             {
                 Tikker.Stop();
                 window.Background = Brushes.Green;
-                eindbuttons("U heeft gewonnen!");
+                eindbuttons($"U heeft het woord {woord} geraden!");
             }
         }
 
@@ -221,9 +338,10 @@ namespace Galgje
             txtLetter.Visibility = Visibility.Hidden;
             lblWoord.Visibility = Visibility.Visible;
             btnVerberg.Visibility = Visibility.Visible;
+            rndSingle.Visibility = Visibility.Visible;
 
-            
-            
+
+
             txtResultaat.Background = Brushes.White;
             txtLetter.Background = Brushes.White;
             
@@ -238,6 +356,7 @@ namespace Galgje
             counter = 1;
             maxTijd = 11;
             lblTimer.Visibility = Visibility.Hidden;
+            rndSingle.IsChecked = false;
             Tikker.Stop();
             stickmanVerdwijn();
         }
@@ -351,6 +470,20 @@ namespace Galgje
         private void v(object sender, RoutedEventArgs e)
         {
             letterMethod("v");
+        }
+
+        private void rndSingle_Checked(object sender, RoutedEventArgs e)
+        {
+            random = rndGetal.Next(100);
+            for (int i = 0; i < 100; i++)
+            {
+                if (i == random)
+                {
+                    woord = galgjeWoorden[i];
+                    btnVerberg_Click(null, null);
+                    rndSingle.Visibility = Visibility.Hidden;
+                }
+            }
         }
 
         private void w(object sender, RoutedEventArgs e)
