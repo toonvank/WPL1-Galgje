@@ -24,7 +24,7 @@ namespace Galgje
     {
         string woord, geradenWoord, juist, fout, letter, lijnen;
         char randomLetter, hintLetter;
-        int counter = 1, counterr=10, maxTijd=11, random, tijdmonitor;
+        int counter = 1, counterr=10, maxTijd, random, tijdmonitor, moeilijkheidsgraad;
         DispatcherTimer Tikker = new DispatcherTimer();
         bool verberg = false, gelijk = false;
         Random rndGetal = new Random();
@@ -161,7 +161,35 @@ namespace Galgje
             'y',
             'z',
         };
-
+        private void Moeilijkheidsgraad()
+        {
+            string answer = Microsoft.VisualBasic.Interaction.InputBox($"[E]asy - [M]edium - [H]ard - [V]eteran\nVul een letter in\nMedium indien leeg.","Moeilijkheidsgraad");
+            if (answer == "e" || answer == "E")
+            {
+                moeilijkheidsgraad = 21;
+                maxTijd = 21;
+            }
+            else if (answer == "m" || answer == "M")
+            {
+                moeilijkheidsgraad = 16;
+                maxTijd = 16;
+            }
+            else if (answer == "h" || answer == "H")
+            {
+                moeilijkheidsgraad = 11;
+                maxTijd = 11;
+            }
+            else if (answer == "v" || answer == "V")
+            {
+                moeilijkheidsgraad = 6;
+                maxTijd = 6;
+            }
+            else
+            {
+                moeilijkheidsgraad = 16;
+                maxTijd = 16;
+            }
+        }
         public MainWindow()
         {
             InitializeComponent();
@@ -209,6 +237,7 @@ namespace Galgje
             lblJuist.Visibility = Visibility.Hidden;
             lblFout.Visibility = Visibility.Hidden;
             lblTimer.Visibility = Visibility.Hidden;
+            btnHint.Visibility = Visibility.Hidden;
             counterr = 10;
             stickmanVerdwijn();
         }
@@ -219,7 +248,6 @@ namespace Galgje
             Tikker.Tick += new EventHandler(DispatcherTimer_Tick);
             Tikker.Interval = new TimeSpan(0, 0, 1);
             Tikker.Start();
-            maxTijd = 11;
             lblTimer.Content = maxTijd;
         }
         private void DispatcherTimer_Tick(object sender, EventArgs e)
@@ -235,7 +263,6 @@ namespace Galgje
                 else
                 {
                     lblTimer.Visibility = Visibility.Hidden;
-                    maxTijd = 11;
                 }
             }
             else
@@ -244,8 +271,8 @@ namespace Galgje
                 counterr -= 1;
                 lblLevens.Content = $"{counterr} levens";
                 lblTimer.Visibility = Visibility.Hidden;
-                maxTijd = 11;
                 MessageBox.Show("Tijd is om");
+                maxTijd = moeilijkheidsgraad;
                 window.Background = Brushes.White;
                 if (counterr == 0)
                 {
@@ -255,6 +282,7 @@ namespace Galgje
         }
         private void btnVerberg_Click(object sender, RoutedEventArgs e)
         {
+            Moeilijkheidsgraad();
             tijdmonitor += 1;
             //voorkomt dat meerdere timer instances gestart worden
             if (tijdmonitor==1)
@@ -364,7 +392,7 @@ namespace Galgje
         private void btnNieuw_Click(object sender, RoutedEventArgs e)
         {
             window.Background = Brushes.White;
-            btnRaad.IsEnabled = true;
+            btnRaad.IsEnabled = false;
             verberg = false;
             keys.IsEnabled = true;
             woord = string.Empty;
@@ -397,7 +425,6 @@ namespace Galgje
             
             counterr = 10;
             counter = 1;
-            maxTijd = 11;
             
             lblTimer.Visibility = Visibility.Hidden;
             rndSingle.IsChecked = false;
@@ -594,7 +621,7 @@ namespace Galgje
             lblFout.Content = $"Foute:{fout}";
             lblJuist.Content = $"Juiste:{juist}";
             lblLevens.Content = $"{counterr} levens";
-
+            maxTijd = moeilijkheidsgraad;
             //oude methode om volledig woord te vergelijken
 
             //if (woord != geradenwoord)
