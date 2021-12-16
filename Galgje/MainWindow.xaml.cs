@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading;
+using System.Windows.Threading;
 
 namespace Galgje
 {
@@ -22,7 +23,8 @@ namespace Galgje
     public partial class MainWindow : Window
     {
         string woord, geradenWoord, juist, fout, letter, lijnen;
-        int levens = 10, lengteLijntjes = 0, counter = 1, counterr=10;
+        int counter = 1, counterr=10, maxTijd=11;
+        DispatcherTimer Tikker = new DispatcherTimer();
         bool verberg = false, gelijk = false;
         public MainWindow()
         {
@@ -66,8 +68,46 @@ namespace Galgje
             btnRaad.IsEnabled = false;
             keys.IsEnabled = false;
         }
+        private void Timer()
+        {
+            window.Background = Brushes.White;
+            // Timer laten aflopen om de seconde.
+            Tikker.Tick += new EventHandler(DispatcherTimer_Tick);
+            Tikker.Interval = new TimeSpan(0, 0, 1);
+            maxTijd = 11;
+            Tikker.Start();
+            lblTimer.Content = maxTijd;
+        }
+        private void DispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            if (maxTijd != 0)
+            {
+                lblTimer.Visibility = Visibility.Visible;
+                if (txtLetter.Text == String.Empty)
+                {
+                    maxTijd -= 1;
+                    lblTimer.Content = maxTijd;
+                }
+                else
+                {
+                    lblTimer.Visibility = Visibility.Hidden;
+                    maxTijd = 11;
+                }
+            }
+            else
+            {
+                window.Background = Brushes.Red;
+                counterr -= 1;
+                lblLevens.Content = $"{counterr} levens";
+                lblTimer.Visibility = Visibility.Hidden;
+                maxTijd = 11;
+                MessageBox.Show("Tijd is om");
+                window.Background = Brushes.White;
+            }
+        }
         private void btnVerberg_Click(object sender, RoutedEventArgs e)
         {
+            Timer();
             verberg = true;
             //raadknop verbergen
             btnRaad.IsEnabled = true;
@@ -156,6 +196,7 @@ namespace Galgje
             }
             if (txtResultaat.Text == woord)
             {
+                Tikker.Stop();
                 window.Background = Brushes.Green;
                 eindbuttons("U heeft gewonnen!");
             }
@@ -195,7 +236,9 @@ namespace Galgje
             
             counterr = 10;
             counter = 1;
-
+            maxTijd = 11;
+            lblTimer.Visibility = Visibility.Hidden;
+            Tikker.Stop();
             stickmanVerdwijn();
         }
 
@@ -303,6 +346,7 @@ namespace Galgje
         {
             letterMethod("u");
         }
+
 
         private void v(object sender, RoutedEventArgs e)
         {

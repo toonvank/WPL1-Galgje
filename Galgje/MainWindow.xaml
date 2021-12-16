@@ -19,7 +19,7 @@
             <Button x:Name="btnExit" Content="Exit" Click="btnExit_Click"/>
         </StackPanel>
         <WrapPanel x:Name="keys" Grid.Row="1" Margin="0,1,0,0" HorizontalAlignment="Center">
-            <Button Content="a" Width="40px" FontSize="20" Margin="5px" Click="Button_Click"/>
+            <Button Content="a" Width="40px" FontSize="20" Margin="5px" Click="Button_Click" Background="#FFDDDDDD"/>
             <Button Content="b" Width="40px" FontSize="20" Margin="5px" Click="b"/>
             <Button Content="c" Width="40px" FontSize="20" Margin="5px" Click="c"/>
             <Button Content="d" Width="40px" FontSize="20" Margin="5px" Click="d"/>
@@ -51,8 +51,8 @@
         <Label x:Name="lblLevens" Content="10 levens" HorizontalAlignment="Left" Margin="20,65,0,0" VerticalAlignment="Top" FontSize="20" Width="116" HorizontalContentAlignment="Center" Visibility="Hidden"/>
         <Label x:Name="lblGeraden" Content="Hoera! Je heb hem geraden!" HorizontalAlignment="Left" Margin="20,44,0,0" VerticalAlignment="Top" FontSize="30" Width="430" HorizontalContentAlignment="Center" Visibility="Hidden"/>
         <Label x:Name="lblNietGeraden" Content="Je hebt het woord niet op tijd geraden." HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="25" Width="460" HorizontalContentAlignment="Center" Visibility="Hidden"/>
-        <Label x:Name="lblJuist" Content="Juiste:" HorizontalAlignment="Left" Margin="180,65,0,0" VerticalAlignment="Top" FontSize="20" Width="116" HorizontalContentAlignment="Center" Visibility="Hidden"/>
-        <Label x:Name="lblFout" Content="Foute:" HorizontalAlignment="Left" Margin="321,65,0,0" VerticalAlignment="Top" FontSize="20" Width="116" HorizontalContentAlignment="Center" Visibility="Hidden"/>
+        <Label x:Name="lblJuist" Content="Juiste:" HorizontalAlignment="Left" Margin="132,65,0,0" VerticalAlignment="Top" FontSize="20" Width="212" HorizontalContentAlignment="Center" Visibility="Hidden"/>
+        <Label x:Name="lblFout" Content="Foute:" HorizontalAlignment="Left" Margin="354,69,0,0" VerticalAlignment="Top" FontSize="20" Width="140" HorizontalContentAlignment="Left" Visibility="Hidden"/>
         <TextBox x:Name="txtLetter" HorizontalAlignment="Left" Margin="204,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="67" Height="47" FontSize="30" IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden"/>
         <Image x:Name="one" Margin="314,233,94,17" Source="/1.png" Stretch="Fill" Visibility="Hidden"/>
         <Image x:Name="two" Margin="343,130,123,17" Source="/2.png" Stretch="Fill" Visibility="Hidden"/>
@@ -73,5 +73,6 @@
             </Image.RenderTransform>
         </Image>
         <Image x:Name="ten" Margin="380,186,24,58" Source="/10.png" Stretch="Fill" Visibility="Hidden"/>
+        <Label x:Name="lblTimer" Content="00:10" HorizontalAlignment="Left" Margin="291,4,0,0" VerticalAlignment="Top" Height="50" Width="85" FontSize="30" Visibility="Hidden"/>
     </Grid>
 </Window>
