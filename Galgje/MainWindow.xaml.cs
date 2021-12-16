@@ -23,6 +23,7 @@ namespace Galgje
     public partial class MainWindow : Window
     {
         string woord, geradenWoord, juist, fout, letter, lijnen;
+        char randomLetter, hintLetter;
         int counter = 1, counterr=10, maxTijd=11, random, tijdmonitor;
         DispatcherTimer Tikker = new DispatcherTimer();
         bool verberg = false, gelijk = false;
@@ -131,34 +132,34 @@ namespace Galgje
             "schijn",
             "sousafoon"
         };
-        private string[] alfabet = new string[]
+        private char[] alfabet = new char[]
         {
-            "a",
-            "b",
-            "c",
-            "d",
-            "e",
-            "f",
-            "g",
-            "h",
-            "i",
-            "j",
-            "k",
-            "l",
-            "m",
-            "n",
-            "o",
-            "p",
-            "q",
-            "r",
-            "s",
-            "t",
-            "u",
-            "v",
-            "w",
-            "x",
-            "y",
-            "z"
+            'a',
+            'b',
+            'c',
+            'd',
+            'e',
+            'f',
+            'g',
+            'h',
+            'i',
+            'j',
+            'k',
+            'l',
+            'm',
+            'n',
+            'o',
+            'p',
+            'q',
+            'r',
+            's',
+            't',
+            'u',
+            'v',
+            'w',
+            'x',
+            'y',
+            'z',
         };
 
         public MainWindow()
@@ -349,7 +350,7 @@ namespace Galgje
                 if (counterr ==0)
                 {
                     window.Background = Brushes.Red;
-                    eindbuttons($"U heeft verloren. Het juiste woord was {woord}");
+                    eindbuttons($"U heeft verloren. Het juiste woord was {woord}.");
                 }
             }
             if (txtResultaat.Text == woord)
@@ -509,6 +510,25 @@ namespace Galgje
             letterMethod("u");
         }
 
+        private void btnHint_Click(object sender, RoutedEventArgs e)
+        {
+            random = rndGetal.Next(26);
+            for (int i = 0; i < alfabet.Length; i++)
+            {
+                if (i == random)
+                {
+                    randomLetter = alfabet[i];
+                }
+            }
+            for (int i = 0; i < woord.Length; i++)
+            {
+                if (woord[i] != randomLetter)
+                {
+                    hintLetter = randomLetter;
+                }
+            }
+            MessageBox.Show(Convert.ToString(hintLetter));
+        }
 
         private void v(object sender, RoutedEventArgs e)
         {
