@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading;
 using System.Windows.Threading;
+using System.Drawing;
 
 namespace Galgje
 {
@@ -26,9 +27,8 @@ namespace Galgje
         char randomLetter, hintLetter;
         int counter = 1, counterr=10, maxTijd, random, tijdmonitor, moeilijkheidsgraad;
         DispatcherTimer Tikker = new DispatcherTimer();
-        bool verberg = false, gelijk = false;
+        bool verberg = false, gelijk = false, knop = false;
         Random rndGetal = new Random();
-
         private string[] galgjeWoorden = new string[]
         {
             "grafeem",
@@ -161,6 +161,63 @@ namespace Galgje
             'y',
             'z',
         };
+
+        private void KeysTonen()
+        {
+            //alle keys terug laten tonen na nieuw spel
+            a.Visibility = Visibility.Visible;
+            b.Visibility = Visibility.Visible;
+            c.Visibility = Visibility.Visible;
+            d.Visibility = Visibility.Visible;
+            e.Visibility = Visibility.Visible;
+            f.Visibility = Visibility.Visible;
+            g.Visibility = Visibility.Visible;
+            h.Visibility = Visibility.Visible;
+            i.Visibility = Visibility.Visible;
+            j.Visibility = Visibility.Visible;
+            k.Visibility = Visibility.Visible;
+            l.Visibility = Visibility.Visible;
+            m.Visibility = Visibility.Visible;
+            n.Visibility = Visibility.Visible;
+            o.Visibility = Visibility.Visible;
+            p.Visibility = Visibility.Visible;
+            q.Visibility = Visibility.Visible;
+            r.Visibility = Visibility.Visible;
+            s.Visibility = Visibility.Visible;
+            t.Visibility = Visibility.Visible;
+            u.Visibility = Visibility.Visible;
+            v.Visibility = Visibility.Visible;
+            w.Visibility = Visibility.Visible;
+            x.Visibility = Visibility.Visible;
+            y.Visibility = Visibility.Visible;
+            z.Visibility = Visibility.Visible;
+
+        }
+        private void Hoofdscherm()
+        {
+            //hoofdscherm doen verdwijen
+            igmLogo.Visibility = Visibility.Hidden;
+            btnSingle.Visibility = Visibility.Hidden;
+            btnMulti.Visibility = Visibility.Hidden;
+            btnExit.Visibility = Visibility.Hidden;
+            imgLogoaltijdaanwezig.Visibility = Visibility.Visible;
+        }
+
+        private void GeefEenWoordIn()
+        {
+            //scherm waar woord ingegeven wordt tonen
+            lblWoord.Visibility = Visibility.Visible;
+            txtResultaat.Visibility = Visibility.Visible;
+            btnVerberg.Visibility = Visibility.Visible;
+            keys.Visibility = Visibility.Visible;
+        }
+
+        private void GeefEenWoordInVerberg()
+        {
+            //scherm waar woord ingegeven wordt tonen
+            lblWoord.Visibility = Visibility.Hidden;
+            btnVerberg.Visibility = Visibility.Hidden;
+        }
         private void Moeilijkheidsgraad()
         {
             string answer = Microsoft.VisualBasic.Interaction.InputBox($"[E]asy - [M]edium - [H]ard - [V]eteran\nVul een letter in\nMedium indien leeg.","Moeilijkheidsgraad");
@@ -209,22 +266,6 @@ namespace Galgje
             ten.Visibility = Visibility.Hidden;
         }
 
-        private void letterMethod(string gekozenLetter)
-        {
-            //deze wordt opgeroepen als een er op een letter van het virtueel toestenbord gedrukt wordt
-            letter = string.Empty;
-            if (verberg == true)
-            {
-                txtLetter.Text += gekozenLetter;
-            }
-            else
-            {
-                txtResultaat.Text += "*";
-                woord += gekozenLetter;
-            }
-            letter = gekozenLetter;
-        }
-
         private void eindbuttons(string status)
         {
             //dit gebeurd er als speler gewonnen of verloren heeft
@@ -233,11 +274,20 @@ namespace Galgje
             keys.IsEnabled = false;
             Tikker.Stop();
             txtResultaat.Text = String.Empty;
+            keys.Visibility = Visibility.Hidden;
             lblLevens.Visibility = Visibility.Hidden;
             lblJuist.Visibility = Visibility.Hidden;
             lblFout.Visibility = Visibility.Hidden;
             lblTimer.Visibility = Visibility.Hidden;
             btnHint.Visibility = Visibility.Hidden;
+            btnNieuw.Visibility = Visibility.Visible;
+            btnExit2.Visibility = Visibility.Visible;
+            lblEindwoord.Content = String.Empty;
+            lblEindwoord.Content = woord;
+            lblEindwoord.Visibility = Visibility.Visible;
+            eindknoppen.Visibility = Visibility.Visible;
+            txtResultaat.Visibility = Visibility.Hidden;
+            btnRaad.Visibility = Visibility.Hidden;
             counterr = 10;
             stickmanVerdwijn();
         }
@@ -282,7 +332,7 @@ namespace Galgje
         }
         private void btnVerberg_Click(object sender, RoutedEventArgs e)
         {
-            Moeilijkheidsgraad();
+            GeefEenWoordInVerberg();
             tijdmonitor += 1;
             //voorkomt dat meerdere timer instances gestart worden
             if (tijdmonitor==1)
@@ -300,13 +350,13 @@ namespace Galgje
             btnVerberg.Visibility = Visibility.Hidden;
             lblWoord.Visibility = Visibility.Hidden;
             btnHint.Visibility = Visibility.Visible;
-            rndSingle.Visibility = Visibility.Hidden;
             //labels laten tonen
             lblLevens.Visibility = Visibility.Visible;
             lblJuist.Visibility = Visibility.Visible;
             lblFout.Visibility = Visibility.Visible;
             txtResultaat.Text = string.Empty;
-            txtLetter.Visibility = Visibility.Visible;
+            lblTimer.Visibility = Visibility.Visible;
+            btnRaad.Visibility = Visibility.Visible;
             //lijntjes genereren
             char[] lijntjes = woord.ToCharArray();
             int lengteLijntjes = lijntjes.Length;
@@ -314,6 +364,7 @@ namespace Galgje
             {
                 txtResultaat.Text += "*";
             }
+            knop = true;
         }
 
         private void Compare()
@@ -408,13 +459,20 @@ namespace Galgje
             txtLetter.Visibility = Visibility.Hidden;
             lblWoord.Visibility = Visibility.Visible;
             btnVerberg.Visibility = Visibility.Visible;
-            rndSingle.Visibility = Visibility.Visible;
             btnHint.Visibility = Visibility.Hidden;
+            btnNieuw.Visibility = Visibility.Hidden;
+            lblWoord.Visibility = Visibility.Hidden;
+            lblEindwoord.Visibility = Visibility.Hidden;
+            btnVerberg.Visibility = Visibility.Hidden;
+            igmLogo.Visibility = Visibility.Visible;
+            imgLogoaltijdaanwezig.Visibility = Visibility.Hidden;
+            eindknoppen.Visibility = Visibility.Hidden;
+            btnSingle.Visibility = Visibility.Visible;
+            btnMulti.Visibility = Visibility.Visible;
+            btnExit.Visibility = Visibility.Visible;
 
 
 
-            txtResultaat.Background = Brushes.White;
-            txtLetter.Background = Brushes.White;
             
             lblJuist.Content = "Juiste:";
             lblFout.Content = "Foute:";
@@ -427,114 +485,78 @@ namespace Galgje
             counter = 1;
             
             lblTimer.Visibility = Visibility.Hidden;
-            rndSingle.IsChecked = false;
             Tikker.Stop();
             stickmanVerdwijn();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+        private void Button_GotFocus(object sender, RoutedEventArgs e)
         {
-            letterMethod("a");
+            
         }
 
-        private void b(object sender, RoutedEventArgs e)
+        private void button_GotMouseCapture(object sender, MouseEventArgs e)
         {
-            letterMethod("b");
+
         }
 
-        private void c(object sender, RoutedEventArgs e)
+        private void button_MouseEnter(object sender, MouseEventArgs e)
         {
-            letterMethod("c");
+            
         }
 
-        private void d(object sender, RoutedEventArgs e)
+        private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            letterMethod("d");
+            Moeilijkheidsgraad();
+            random = rndGetal.Next(100);
+            for (int i = 0; i < 100; i++)
+            {
+                if (i == random)
+                {
+                    woord = galgjeWoorden[i];
+                    btnVerberg_Click(null, null);
+                }
+            }
+            Hoofdscherm();
+            keys.Visibility = Visibility.Visible;
         }
 
-        private void e(object sender, RoutedEventArgs e)
+        private void btnMulti_Click(object sender, RoutedEventArgs e)
         {
-            letterMethod("e");
+            Moeilijkheidsgraad();
+            Hoofdscherm();
+            GeefEenWoordIn();
+            KeysTonen();
         }
 
-        private void f(object sender, RoutedEventArgs e)
+        private void button(object sender, RoutedEventArgs e)
         {
-            letterMethod("f");
+
         }
 
-        private void g(object sender, RoutedEventArgs e)
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            letterMethod("g");
-        }
+            Button btn = (Button)sender;
+            if (knop == true)
+            {
+                btn.Visibility = Visibility.Hidden;
+            }
+            else
+            {
 
-        private void h(object sender, RoutedEventArgs e)
-        {
-            letterMethod("h");
-        }
-
-        private void i(object sender, RoutedEventArgs e)
-        {
-            letterMethod("i");
-        }
-
-        private void j(object sender, RoutedEventArgs e)
-        {
-            letterMethod("j");
-        }
-
-        private void k(object sender, RoutedEventArgs e)
-        {
-            letterMethod("k");
-        }
-
-        private void l(object sender, RoutedEventArgs e)
-        {
-            letterMethod("l");
-        }
-
-        private void m(object sender, RoutedEventArgs e)
-        {
-            letterMethod("m");
-        }
-
-        private void n(object sender, RoutedEventArgs e)
-        {
-            letterMethod("n");
-        }
-
-        private void o(object sender, RoutedEventArgs e)
-        {
-            letterMethod("o");
-        }
-
-        private void p(object sender, RoutedEventArgs e)
-        {
-            letterMethod("p");
-        }
-
-        private void q(object sender, RoutedEventArgs e)
-        {
-            letterMethod("q");
-        }
-
-        private void r(object sender, RoutedEventArgs e)
-        {
-            letterMethod("r");
-        }
-
-        private void s(object sender, RoutedEventArgs e)
-        {
-            letterMethod("s");
-        }
-
-        private void t(object sender, RoutedEventArgs e)
-        {
-            letterMethod("t");
-        }
-
-        private void u(object sender, RoutedEventArgs e)
-        {
-            letterMethod("u");
+            }
+            
+            letter = string.Empty;
+            if (verberg == true)
+            {
+                txtLetter.Text += btn.Name;
+            }
+            else
+            {
+                txtResultaat.Text += "*";
+                woord += btn.Name;
+            }
+            letter = btn.Name;
         }
 
         private void btnHint_Click(object sender, RoutedEventArgs e)
@@ -554,48 +576,14 @@ namespace Galgje
                     hintLetter = randomLetter;
                 }
             }
+            //trekt een leven af na hint
+            lblLevens.Content = String.Empty;
+            counterr -= 1;
+            lblLevens.Content = $"{counterr} levens";
             MessageBox.Show(Convert.ToString(hintLetter));
         }
 
-        private void v(object sender, RoutedEventArgs e)
-        {
-            letterMethod("v");
-        }
-
-        private void rndSingle_Checked(object sender, RoutedEventArgs e)
-        {
-            random = rndGetal.Next(100);
-            for (int i = 0; i < 100; i++)
-            {
-                if (i == random)
-                {
-                    woord = galgjeWoorden[i];
-                    btnVerberg_Click(null, null);
-                    rndSingle.Visibility = Visibility.Hidden;
-                }
-            }
-        }
-
-        private void w(object sender, RoutedEventArgs e)
-        {
-            letterMethod("w");
-        }
-
-        private void x(object sender, RoutedEventArgs e)
-        {
-            letterMethod("x");
-        }
-
-        private void y(object sender, RoutedEventArgs e)
-        {
-            letterMethod("y");
-        }
-
-        private void z(object sender, RoutedEventArgs e)
-        {
-            letterMethod("z");
-        }
-
+        
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             //backspace knop die niet meer bestaat
@@ -618,7 +606,7 @@ namespace Galgje
             geradenWoord += txtResultaat.Text;
             //geradenWoord += geradenWoord.ToLower();
             Compare();
-            lblFout.Content = $"Foute:{fout}";
+            lblFout.Content = $"Foute:\n{fout}";
             lblJuist.Content = $"Juiste:{juist}";
             lblLevens.Content = $"{counterr} levens";
             maxTijd = moeilijkheidsgraad;

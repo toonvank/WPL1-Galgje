@@ -96,7 +96,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="logo 3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="new.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="10.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="2.png" />
@@ -121,12 +130,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="9.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="10.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="download %281%29.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
