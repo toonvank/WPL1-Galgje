@@ -440,6 +440,11 @@ namespace Galgje
             }
         }
 
+        private void btnSingle_MouseEnter(object sender, MouseEventArgs e)
+        {
+
+        }
+
         private void btnNieuw_Click(object sender, RoutedEventArgs e)
         {
             window.Background = Brushes.White;
@@ -527,6 +532,7 @@ namespace Galgje
             Hoofdscherm();
             GeefEenWoordIn();
             KeysTonen();
+            knop = false;
         }
 
         private void button(object sender, RoutedEventArgs e)

@@ -4,6 +4,33 @@
              xmlns:local="clr-namespace:Galgje"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="Button">
+            <Setter Property="BorderBrush" Value="Gray" />
+            <Setter Property="BorderThickness" Value="5" />
+            <Setter Property="Width" Value="auto" />
+            <Setter Property="Height" Value="auto" />
+            <!--  start aangepaste code van stack overflow source:https://stackoverflow.com/questions/17259280/how-do-you-change-background-for-a-button-mouseover-in-wpf  -->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            x:Name="border"
+                            Background="#FF3D9AFA"
+                            BorderBrush="Black"
+                            BorderThickness="3px"
+                            Padding="6px"
+                            CornerRadius="6,6,6,6">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="border" Property="BorderBrush" Value="white" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <!--  einde aangepaste code van stackflow  -->
+        </Style>
     </Application.Resources>
 </Application>

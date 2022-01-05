@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Galgje"
         mc:Ignorable="d"
-        Title="Galgje" Height="514" Width="492">
+        Title="Galgje" Height="536" Width="490">
     <Grid x:Name="window">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="107*"/>
@@ -73,9 +73,9 @@
 
         <!-- Hoofdscherm knoppen-->
         <StackPanel x:Name="startknop" Grid.Column="1" Visibility="Visible" Margin="0,265,0,0" Grid.RowSpan="2">
-            <Button x:Name="btnSingle" Content="Single Player" Background="#FF3D9AFA" FontFamily="Berlin Sans FB" FontSize="30" Foreground="White" BorderBrush="Black" BorderThickness="2px" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" Padding="5px" Margin="5px" Click="Button_Click_3"/>
+            <Button x:Name="btnSingle" Content="Single Player" Background="#FF3D9AFA" FontFamily="Berlin Sans FB" FontSize="30" Foreground="White" BorderBrush="Black" BorderThickness="2px" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" Padding="5px" Margin="5px" Click="Button_Click_3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             <Button x:Name="btnMulti" Content="Multi Player" Background="#FF3D9AFA" FontFamily="Berlin Sans FB" FontSize="30" Foreground="White" BorderBrush="Black" BorderThickness="2px" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" Padding="5px" Margin="5px" Click="btnMulti_Click"/>
-            <Button x:Name="btnExit" Content="Exit" Click="btnExit_Click" Background="#FF3D9AFA" FontFamily="Berlin Sans FB" FontSize="30" Foreground="White" BorderBrush="Black" BorderThickness="2px" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" Padding="5px" Margin="5px"/>
+            <Button x:Name="btnExit" Content="Exit" Click="btnExit_Click" Background="#FF3D9AFA" FontFamily="Berlin Sans FB" FontSize="30" Foreground="White" BorderBrush="Black" BorderThickness="65,2,2,2" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" Padding="5px" Margin="5,5,5,5"/>
         </StackPanel>
 
         <Button x:Name="btnVerberg" Content="Verberg" Click="btnVerberg_Click" Background="#FF3D9AFA" FontFamily="Berlin Sans FB" FontSize="30" Foreground="White" BorderBrush="Black" BorderThickness="2px" HorizontalContentAlignment="Center" Padding="5px" Margin="100,155,10,10" Grid.ColumnSpan="2" Visibility="Hidden" Grid.Row="1"/>
