@@ -512,22 +512,6 @@ namespace Galgje
             stickmanVerdwijn();
         }
 
-
-        private void Button_GotFocus(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void button_GotMouseCapture(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void button_MouseEnter(object sender, MouseEventArgs e)
-        {
-            
-        }
-
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             Moeilijkheidsgraad();
@@ -542,8 +526,6 @@ namespace Galgje
             }
             Hoofdscherm();
             keys.Visibility = Visibility.Visible;
-            KeysTonen();
-            knop = false;
         }
 
         private void btnMulti_Click(object sender, RoutedEventArgs e)
