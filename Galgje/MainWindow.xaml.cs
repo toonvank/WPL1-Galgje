@@ -23,12 +23,13 @@ namespace Galgje
     /// </summary>
     public partial class MainWindow : Window
     {
-        string woord, geradenWoord, juist, fout, letter, lijnen;
+        string woord, geradenWoord, juist, fout, letter, lijnen, spelerNaam;
         char randomLetter, hintLetter;
         int counter = 1, counterr=10, maxTijd, random, tijdmonitor, moeilijkheidsgraad;
         DispatcherTimer Tikker = new DispatcherTimer();
         bool verberg = false, gelijk = false, knop = false;
         Random rndGetal = new Random();
+        DateTime vandaag = DateTime.Today;
         private string[] galgjeWoorden = new string[]
         {
             "grafeem",
@@ -250,6 +251,8 @@ namespace Galgje
         public MainWindow()
         {
             InitializeComponent();
+            txtBack.Opacity = 0.745;
+            txtHighscore.Text += $"\t\tHighscore";
         }
         private void stickmanVerdwijn()
         {
@@ -285,10 +288,11 @@ namespace Galgje
             lblEindwoord.Content = String.Empty;
             lblEindwoord.Content = woord;
             lblEindwoord.Visibility = Visibility.Visible;
+            txtHighscore.Visibility = Visibility.Visible;
             eindknoppen.Visibility = Visibility.Visible;
             txtResultaat.Visibility = Visibility.Hidden;
             btnRaad.Visibility = Visibility.Hidden;
-            counterr = 10;
+            
             stickmanVerdwijn();
         }
         private void Timer()
@@ -317,13 +321,13 @@ namespace Galgje
             }
             else
             {
-                window.Background = Brushes.Red;
+                txtBack.Visibility = Visibility.Visible;
                 counterr -= 1;
                 lblLevens.Content = $"{counterr} levens";
                 lblTimer.Visibility = Visibility.Hidden;
                 MessageBox.Show("Tijd is om");
                 maxTijd = moeilijkheidsgraad;
-                window.Background = Brushes.White;
+                txtBack.Visibility = Visibility.Hidden; //background remove
                 if (counterr == 0)
                 {
                     Compare();
@@ -367,6 +371,11 @@ namespace Galgje
             knop = true;
         }
 
+        private void Highscore()
+        {
+            string time = DateTime.Now.ToString("hh:mm:ss");
+            txtHighscore.Text += $"\n\t   {spelerNaam}   -   {counterr}   ({time})";
+        }
         private void Compare()
         {
             gelijk = false;
@@ -428,15 +437,23 @@ namespace Galgje
                 counterr--;
                 if (counterr ==0)
                 {
-                    window.Background = Brushes.Red;
+                    txtBack.Visibility = Visibility.Visible;
+                    txtBack.Background = Brushes.Red;
                     eindbuttons($"U heeft verloren. Het juiste woord was {woord}.");
+                    spelerNaam = Microsoft.VisualBasic.Interaction.InputBox($"Vul uw naam in.", "Highscore");
+                    Highscore();
+                    txtBack.Visibility = Visibility.Hidden;
                 }
             }
             if (txtResultaat.Text == woord)
             {
                 Tikker.Stop();
-                window.Background = Brushes.Green;
+                txtBack.Visibility = Visibility.Visible;
+                txtBack.Background = Brushes.Green;
                 eindbuttons($"U heeft het woord {woord} geraden!");
+                spelerNaam = Microsoft.VisualBasic.Interaction.InputBox($"Vul uw naam in.", "Highscore");
+                Highscore();
+                txtBack.Visibility = Visibility.Hidden;
             }
         }
 
@@ -447,7 +464,8 @@ namespace Galgje
 
         private void btnNieuw_Click(object sender, RoutedEventArgs e)
         {
-            window.Background = Brushes.White;
+            txtBack.Visibility = Visibility.Hidden;
+            txtBack.Background = Brushes.Red;
             btnRaad.IsEnabled = false;
             verberg = false;
             keys.IsEnabled = true;
@@ -468,6 +486,7 @@ namespace Galgje
             btnNieuw.Visibility = Visibility.Hidden;
             lblWoord.Visibility = Visibility.Hidden;
             lblEindwoord.Visibility = Visibility.Hidden;
+            txtHighscore.Visibility = Visibility.Hidden;
             btnVerberg.Visibility = Visibility.Hidden;
             igmLogo.Visibility = Visibility.Visible;
             imgLogoaltijdaanwezig.Visibility = Visibility.Hidden;
@@ -475,10 +494,9 @@ namespace Galgje
             btnSingle.Visibility = Visibility.Visible;
             btnMulti.Visibility = Visibility.Visible;
             btnExit.Visibility = Visibility.Visible;
+            spelerNaam = String.Empty; //naam leegmaken
 
 
-
-            
             lblJuist.Content = "Juiste:";
             lblFout.Content = "Foute:";
 
@@ -524,6 +542,8 @@ namespace Galgje
             }
             Hoofdscherm();
             keys.Visibility = Visibility.Visible;
+            KeysTonen();
+            knop = false;
         }
 
         private void btnMulti_Click(object sender, RoutedEventArgs e)
