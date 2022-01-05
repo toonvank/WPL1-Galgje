@@ -27,7 +27,7 @@ namespace Galgje
         char randomLetter, hintLetter;
         int counter = 1, counterr=10, maxTijd, random, tijdmonitor, moeilijkheidsgraad;
         DispatcherTimer Tikker = new DispatcherTimer();
-        bool verberg = false, gelijk = false, knop = false;
+        bool verberg = false, gelijk = false, knop = false, eindscherm = false, spelgespeeld = false, moeilijkheid = true;
         Random rndGetal = new Random();
         DateTime vandaag = DateTime.Today;
         private string[] galgjeWoorden = new string[]
@@ -202,6 +202,8 @@ namespace Galgje
             btnMulti.Visibility = Visibility.Hidden;
             btnExit.Visibility = Visibility.Hidden;
             imgLogoaltijdaanwezig.Visibility = Visibility.Visible;
+            spelgespeeld = true;
+            moeilijkheid = false;
         }
 
         private void GeefEenWoordIn()
@@ -292,6 +294,7 @@ namespace Galgje
             eindknoppen.Visibility = Visibility.Visible;
             txtResultaat.Visibility = Visibility.Hidden;
             btnRaad.Visibility = Visibility.Hidden;
+            eindscherm = true;
             
             stickmanVerdwijn();
         }
@@ -304,6 +307,63 @@ namespace Galgje
             Tikker.Start();
             lblTimer.Content = maxTijd;
         }
+
+        private void MnuHighscore_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (spelgespeeld == true)
+            {
+                txtHighscore.Visibility = Visibility.Visible;
+            }
+            else
+            {
+
+            }
+        }
+
+        private void MnuToetsen_Click(object sender, RoutedEventArgs e)
+        {
+            if (keys.Visibility == Visibility.Visible)
+            {
+                KeysTonen();
+            }
+            else
+            {
+                MessageBox.Show("U kan enkel alle toesten tonen als het toestenbord aanwezig is.");
+            }
+            
+        }
+
+        private void MnuHighscore_Click(object sender, RoutedEventArgs e)
+        {
+            if (spelgespeeld == false)
+            {
+                MessageBox.Show("Er zijn nog geen highscores aanwezig.");
+            }
+            
+        }
+
+        private void Difficulty_Click(object sender, RoutedEventArgs e)
+        {
+            if (moeilijkheid == true)
+            {
+                Moeilijkheidsgraad();
+            }
+            else
+            {
+                MessageBox.Show("U kan de moelijkheidsgraad niet tijdens het spel veranderen. Start een nieuw spel en probeer dan opnieuw.");
+            }
+            
+        }
+
+        private void MnuHighscore_MouseLeave(object sender, MouseEventArgs e)
+        {
+            txtHighscore.Visibility = Visibility.Hidden;
+            if (spelgespeeld == false)
+            {
+                txtHighscore.Text = $"\t\tHighscore";
+            }
+        }
+
         private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
             if (maxTijd != 0)
@@ -473,6 +533,8 @@ namespace Galgje
             geradenWoord = string.Empty;
             txtResultaat.Text = string.Empty;
             txtLetter.Text = string.Empty;
+            moeilijkheid = true;
+            spelgespeeld = true;
 
             lblNietGeraden.Visibility = Visibility.Hidden;
             lblGeraden.Visibility = Visibility.Hidden;
@@ -494,7 +556,10 @@ namespace Galgje
             btnSingle.Visibility = Visibility.Visible;
             btnMulti.Visibility = Visibility.Visible;
             btnExit.Visibility = Visibility.Visible;
+            keys.Visibility = Visibility.Hidden;
+            btnRaad.Visibility = Visibility.Hidden;
             spelerNaam = String.Empty; //naam leegmaken
+            eindscherm = true;
 
 
             lblJuist.Content = "Juiste:";
@@ -514,6 +579,7 @@ namespace Galgje
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
+            //nieuw spel knop
             Moeilijkheidsgraad();
             random = rndGetal.Next(100);
             for (int i = 0; i < 100; i++)
@@ -526,6 +592,8 @@ namespace Galgje
             }
             Hoofdscherm();
             keys.Visibility = Visibility.Visible;
+            KeysTonen();
+            txtResultaat.Visibility = Visibility.Visible;
         }
 
         private void btnMulti_Click(object sender, RoutedEventArgs e)
@@ -569,26 +637,40 @@ namespace Galgje
 
         private void btnHint_Click(object sender, RoutedEventArgs e)
         {
-            random = rndGetal.Next(26);
-            for (int i = 0; i < alfabet.Length; i++)
+            if (eindscherm == true)
             {
-                if (i == random)
+                MessageBox.Show("U kan enkel tijdens een hint opvragen tijdens het spel.");
+            }
+            else
+            {
+                try
                 {
-                    randomLetter = alfabet[i];
+                    random = rndGetal.Next(26);
+                    for (int i = 0; i < alfabet.Length; i++)
+                    {
+                        if (i == random)
+                        {
+                            randomLetter = alfabet[i];
+                        }
+                    }
+                    for (int i = 0; i < woord.Length; i++)
+                    {
+                        if (woord[i] != randomLetter)
+                        {
+                            hintLetter = randomLetter;
+                        }
+                    }
+                    //trekt een leven af na hint
+                    lblLevens.Content = String.Empty;
+                    counterr -= 1;
+                    lblLevens.Content = $"{counterr} levens";
+                    MessageBox.Show(Convert.ToString(hintLetter));
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("U kan enkel tijdens een hint opvragen tijdens het spel.");
                 }
             }
-            for (int i = 0; i < woord.Length; i++)
-            {
-                if (woord[i] != randomLetter)
-                {
-                    hintLetter = randomLetter;
-                }
-            }
-            //trekt een leven af na hint
-            lblLevens.Content = String.Empty;
-            counterr -= 1;
-            lblLevens.Content = $"{counterr} levens";
-            MessageBox.Show(Convert.ToString(hintLetter));
         }
 
         
