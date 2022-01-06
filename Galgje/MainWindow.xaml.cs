@@ -26,7 +26,7 @@ namespace Galgje
     {
         string woord, geradenWoord, juist, fout, letter, lijnen, spelerNaam;
         char randomLetter, hintLetter;
-        int counter = 1, counterr=10, maxTijd, random, tijdmonitor, moeilijkheidsgraad, speler = 1;
+        int counter = 1, counterr=10, maxTijd, random, tijdmonitor, moeilijkheidsgraad, speler = 1, hintCounter = 0, hintMoeilijkheid;
         DispatcherTimer Tikker = new DispatcherTimer();
         bool verberg = false, gelijk = false, knop = false, hintMogelijk = true, spelgespeeld = false, moeilijkheid = true, scoreboard = false, tienbug= false;
         Random rndGetal = new Random();
@@ -234,26 +234,31 @@ namespace Galgje
             {
                 moeilijkheidsgraad = 21;
                 maxTijd = 21;
+                hintMoeilijkheid = 11;
             }
             else if (answer == "m" || answer == "M")
             {
                 moeilijkheidsgraad = 16;
                 maxTijd = 16;
+                hintMoeilijkheid = 6;
             }
             else if (answer == "h" || answer == "H")
             {
                 moeilijkheidsgraad = 11;
                 maxTijd = 11;
+                hintMoeilijkheid = 4;
             }
             else if (answer == "v" || answer == "V")
             {
                 moeilijkheidsgraad = 6;
                 maxTijd = 6;
+                hintMoeilijkheid = 2;
             }
             else
             {
                 moeilijkheidsgraad = 16;
                 maxTijd = 16;
+                hintMoeilijkheid = 5;
             }
         }
         public MainWindow()
@@ -497,7 +502,7 @@ namespace Galgje
             }
             else
             {
-                MessageBox.Show("U heeft een hint gebruikt en komt niet op het scoreboard.");
+                MessageBox.Show("U heeft een hint gebruikt en komt hierdoor niet op het scoreboard.");
             }
         }
         private void Compare()
@@ -596,6 +601,7 @@ namespace Galgje
             spelgespeeld = true;
             scoreboard = false;
             hintMogelijk = true;
+            hintCounter = 0;
 
             lblNietGeraden.Visibility = Visibility.Hidden;
             lblGeraden.Visibility = Visibility.Hidden;
@@ -708,26 +714,36 @@ namespace Galgje
             {
                 try
                 {
-                    random = rndGetal.Next(26);
-                    for (int i = 0; i < alfabet.Length; i++)
+                    hintCounter++;
+                    if (hintCounter < hintMoeilijkheid)
                     {
-                        if (i == random)
+                        random = rndGetal.Next(26);
+                        for (int i = 0; i < alfabet.Length; i++)
                         {
-                            randomLetter = alfabet[i];
+                            if (i == random)
+                            {
+                                randomLetter = alfabet[i];
+                            }
                         }
+                        for (int i = 0; i < woord.Length; i++)
+                        {
+                            if (woord[i] != randomLetter)
+                            {
+                                hintLetter = randomLetter;
+                            }
+                        }
+                        MessageBox.Show(Convert.ToString(hintLetter));
                     }
-                    for (int i = 0; i < woord.Length; i++)
+                    else
                     {
-                        if (woord[i] != randomLetter)
-                        {
-                            hintLetter = randomLetter;
-                        }
+                        MessageBox.Show($"U heeft het maximum aantal hints ({hintMoeilijkheid - 1}) gebruikt.");
                     }
                     //trekt een leven af na hint
+                    /*
                     lblLevens.Content = String.Empty;
                     counterr -= 1;
                     lblLevens.Content = $"{counterr} levens";
-                    MessageBox.Show(Convert.ToString(hintLetter));
+                    */
                 }
                 catch (Exception)
                 {

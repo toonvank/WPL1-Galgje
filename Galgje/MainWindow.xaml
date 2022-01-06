@@ -89,7 +89,7 @@
             <Button x:Name="btnExit" Content="Exit" Click="btnExit_Click" Background="#FF3D9AFA" FontFamily="Berlin Sans FB" FontSize="30" Foreground="White" BorderBrush="Black" BorderThickness="65,2,2,2" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" Padding="5px" Margin="5,5,5,5"/>
         </StackPanel>
 
-        <Button x:Name="btnVerberg" Content="Verberg" Click="btnVerberg_Click" Background="#FF3D9AFA" FontFamily="Berlin Sans FB" FontSize="30" Foreground="White" BorderBrush="Black" BorderThickness="2px" HorizontalContentAlignment="Center" Padding="5px" Margin="100,155,10,10" Grid.ColumnSpan="2" Visibility="Hidden" Grid.Row="1"/>
+        <Button x:Name="btnVerberg" Content="Verberg" Click="btnVerberg_Click" Background="#FF3D9AFA" FontFamily="Berlin Sans FB" FontSize="30" Foreground="White" BorderBrush="Black" BorderThickness="2px" HorizontalContentAlignment="Center" Padding="5px" Margin="100,155,10,32" Grid.ColumnSpan="2" Visibility="Hidden" Grid.Row="1"/>
         <Button x:Name="btnRaad" Content="Raad" Click="btnRaad_Click" IsEnabled="True" Background="#FF3D9AFA" FontFamily="Berlin Sans FB" FontSize="30" Foreground="White" BorderBrush="Black" BorderThickness="2px" HorizontalContentAlignment="Center" Padding="5px" Margin="90,156,15,32" Visibility="Hidden" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"/>
         <Image x:Name="one" Margin="263,0,0,97" Source="/1.png" Stretch="Fill" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Hidden"/>
         <Image x:Name="two" Margin="263,0,0,97" Source="/2.png" Stretch="Fill" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Hidden"/>
