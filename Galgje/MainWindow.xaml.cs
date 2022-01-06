@@ -24,11 +24,11 @@ namespace Galgje
     /// </summary>
     public partial class MainWindow : Window
     {
-        string woord, geradenWoord, juist, fout, letter, lijnen, spelerNaam;
+        string woord, geradenWoord, juist, fout, letter, lijnen, spelerNaam, modusChecker;
         char randomLetter, hintLetter;
-        int counter = 1, counterr=10, maxTijd, random, tijdmonitor, moeilijkheidsgraad, speler = 1, hintCounter = 0, hintMoeilijkheid;
+        int galgCounter = 1, levensCounter=10, maxTijd, random, tijdmonitor, moeilijkheidsgraad, spelerCount = 1, hintCounter = 0, hintMoeilijkheid;
         DispatcherTimer Tikker = new DispatcherTimer();
-        bool verberg = false, gelijk = false, knop = false, hintMogelijk = true, spelgespeeld = false, moeilijkheid = true, scoreboard = false, tienbug= false, letteringegeven = false;
+        bool verbergChecker = false, gelijk = false, verbergKnopChecker = false, hintMogelijk = true, spelGespeeld = false, moeilijkheid = true, scoreboardChecker = false, tienbug= false, letteringegeven = false, welOpScorebord = false;
         Random rndGetal = new Random();
         List<string> naam = new List<string>();
         List<int> score = new List<int>();
@@ -37,135 +37,14 @@ namespace Galgje
         List<string> spelersTop = new List<string>();
         private string[] galgjeWoorden = new string[]
         {
-            "grafeem",
-            "tjiftjaf",
-            "maquette",
-            "kitsch",
-            "pochet",
-            "convocaat",
-            "jakkeren",
-            "collaps",
-            "zuivel",
-            "cesium",
-            "voyant",
-            "spitten",
-            "pancake",
-            "gietlepel",
-            "karwats",
-            "dehydreren",
-            "viswijf",
-            "flater",
-            "cretonne",
-            "sennhut",
-            "tichel",
-            "wijten",
-            "cadeau",
-            "trotyl",
-            "chopper",
-            "pielen",
-            "vigeren",
-            "vrijuit",
-            "dimorf",
-            "kolchoz",
-            "janhen",
-            "plexus",
-            "borium",
-            "ontweien",
-            "quiche",
-            "ijverig",
-            "mecenaat",
-            "falset",
-            "telexen",
-            "hieruit",
-            "femelaar",
-            "cohesie",
-            "exogeen",
-            "plebejer",
-            "opbouw",
-            "zodiak",
-            "volder",
-            "vrezen",
-            "convex",
-            "verzenden",
-            "ijstijd",
-            "fetisj",
-            "gerekt",
-            "necrose",
-            "conclaaf",
-            "clipper",
-            "poppetjes",
-            "looikuip",
-            "hinten",
-            "inbreng",
-            "arbitraal",
-            "dewijl",
-            "kapzaag",
-            "welletjes",
-            "bissen",
-            "catgut",
-            "oxymoron",
-            "heerschaar",
-            "ureter",
-            "kijkbuis",
-            "dryade",
-            "grofweg",
-            "laudanum",
-            "excitatie",
-            "revolte",
-            "heugel",
-            "geroerd",
-            "hierbij",
-            "glazig",
-            "pussen",
-            "liquide",
-            "aquarium",
-            "formol",
-            "kwelder",
-            "zwager",
-            "vuldop",
-            "halfaap",
-            "hansop",
-            "windvaan",
-            "bewogen",
-            "vulstuk",
-            "efemeer",
-            "decisief",
-            "omslag",
-            "prairie",
-            "schuit",
-            "weivlies",
-            "ontzeggen",
-            "schijn",
-            "sousafoon"
+            "grafeem","tjiftjaf","maquette","kitsch","pochet","convocaat","jakkeren","collaps","zuivel","cesium","voyant","spitten","pancake","gietlepel","karwats","dehydreren",
+            "viswijf","flater","cretonne","sennhut","tichel","wijten","cadeau","trotyl","chopper","pielen","vigeren", "vrijuit","dimorf","kolchoz","janhen","plexus","borium","ontweien","quiche","ijverig","mecenaat","falset", "telexen","hieruit", "femelaar","cohesie","exogeen","plebejer","opbouw", "zodiak", "volder","vrezen", "convex","verzenden", "ijstijd","fetisj","gerekt", "necrose","conclaaf","clipper","poppetjes","looikuip","hinten",
+            "inbreng", "arbitraal","dewijl","kapzaag","welletjes","bissen","catgut","oxymoron","heerschaar","ureter","kijkbuis","dryade","grofweg", "laudanum","excitatie","revolte","heugel","geroerd","hierbij","glazig","pussen", "liquide","aquarium", "formol","kwelder","zwager","vuldop","halfaap", "hansop", "windvaan","bewogen","vulstuk","efemeer","decisief","omslag","prairie", "schuit","weivlies","ontzeggen","schijn","sousafoon"
         };
         private char[] alfabet = new char[]
         {
-            'a',
-            'b',
-            'c',
-            'd',
-            'e',
-            'f',
-            'g',
-            'h',
-            'i',
-            'j',
-            'k',
-            'l',
-            'm',
-            'n',
-            'o',
-            'p',
-            'q',
-            'r',
-            's',
-            't',
-            'u',
-            'v',
-            'w',
-            'x',
-            'y',
-            'z',
+            //alfabet voor hint
+            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
         };
 
         private void KeysTonen()
@@ -197,7 +76,6 @@ namespace Galgje
             x.Visibility = Visibility.Visible;
             y.Visibility = Visibility.Visible;
             z.Visibility = Visibility.Visible;
-
         }
         private void Hoofdscherm()
         {
@@ -207,7 +85,7 @@ namespace Galgje
             btnMulti.Visibility = Visibility.Hidden;
             btnExit.Visibility = Visibility.Hidden;
             imgLogoaltijdaanwezig.Visibility = Visibility.Visible;
-            spelgespeeld = true;
+            spelGespeeld = true;
             moeilijkheid = false;
             hintMogelijk = false;
         }
@@ -223,12 +101,13 @@ namespace Galgje
 
         private void GeefEenWoordInVerberg()
         {
-            //scherm waar woord ingegeven wordt tonen
+            //scherm waar woord ingegeven wordt verbergen
             lblWoord.Visibility = Visibility.Hidden;
             btnVerberg.Visibility = Visibility.Hidden;
         }
         private void Moeilijkheidsgraad()
         {
+            //moeilijkheidsgraad kiezen
             string answer = Microsoft.VisualBasic.Interaction.InputBox($"[E]asy - [M]edium - [H]ard - [V]eteran\nVul een letter in","Moeilijkheidsgraad","m");
             if (answer == "e" || answer == "E")
             {
@@ -265,7 +144,9 @@ namespace Galgje
         {
             InitializeComponent();
             txtBack.Opacity = 0.745;
-            txtHighscore.Text += $"Er zijn nog geen highscores beschikbaar.";
+
+            //standaard txtHighscore waarde
+            txtHighscore.Text += $"     Er zijn nog geen highscores beschikbaar.";
         }
         private void stickmanVerdwijn()
         {
@@ -306,7 +187,6 @@ namespace Galgje
             txtResultaat.Visibility = Visibility.Hidden;
             btnRaad.Visibility = Visibility.Hidden;
             imgLogoaltijdaanwezig.Visibility = Visibility.Hidden;
-            
             stickmanVerdwijn();
         }
         private void Timer()
@@ -321,7 +201,7 @@ namespace Galgje
 
         private void MnuHighscore_MouseEnter(object sender, MouseEventArgs e)
         {
-            if (spelgespeeld == true)
+            if (spelGespeeld == true)
             {
                 txtHighscore.Visibility = Visibility.Visible;
             }
@@ -342,7 +222,7 @@ namespace Galgje
 
         private void MnuHighscore_Click(object sender, RoutedEventArgs e)
         {
-            if (spelgespeeld == false)
+            if (spelGespeeld == false)
             {
                 MessageBox.Show("Er zijn nog geen highscores aanwezig.");
             }
@@ -367,7 +247,7 @@ namespace Galgje
             if (lblEindwoord.Visibility != Visibility.Visible) //zorgt ervoor dat txt highscore niet verdwijnt op eindscherm
             {
                 txtHighscore.Visibility = Visibility.Hidden;
-                if (spelgespeeld == false)
+                if (spelGespeeld == false)
                 {
                     txtHighscore.Text = $"\t\tHighscore";
                 }
@@ -392,13 +272,13 @@ namespace Galgje
             else
             {
                 txtBack.Visibility = Visibility.Visible;
-                counterr -= 1;
-                lblLevens.Content = $"{counterr} levens";
+                levensCounter -= 1;
+                lblLevens.Content = $"{levensCounter} levens";
                 lblTimer.Visibility = Visibility.Hidden;
                 MessageBox.Show("Tijd is om");
                 maxTijd = moeilijkheidsgraad;
                 txtBack.Visibility = Visibility.Hidden; //background remove
-                if (counterr == 0)
+                if (levensCounter == 0)
                 {
                     Compare();
                 }
@@ -406,52 +286,60 @@ namespace Galgje
         }
         private void btnVerberg_Click(object sender, RoutedEventArgs e)
         {
-            GeefEenWoordInVerberg();
-            tijdmonitor += 1;
-            //voorkomt dat meerdere timer instances gestart worden
-            if (tijdmonitor==1)
+            if (txtResultaat.Text == string.Empty & modusChecker == "multi")
             {
-                Timer();
+                MessageBox.Show("Geef een woord in.");
             }
             else
             {
-                Tikker.Start();
+                GeefEenWoordInVerberg();
+                tijdmonitor += 1;
+                //voorkomt dat meerdere timer instances gestart worden
+                if (tijdmonitor == 1)
+                {
+                    Timer();
+                }
+                else
+                {
+                    Tikker.Start();
+                }
+                verbergChecker = true;
+                //raadknop verbergen
+                btnRaad.IsEnabled = true;
+                //eerste knoppen verbergen
+                btnVerberg.Visibility = Visibility.Hidden;
+                lblWoord.Visibility = Visibility.Hidden;
+                btnHint.Visibility = Visibility.Visible;
+                //labels laten tonen
+                lblLevens.Visibility = Visibility.Visible;
+                lblJuist.Visibility = Visibility.Visible;
+                lblFout.Visibility = Visibility.Visible;
+                txtResultaat.Text = string.Empty;
+                lblTimer.Visibility = Visibility.Visible;
+                btnRaad.Visibility = Visibility.Visible;
+                //sterren genereren
+                char[] lijntjes = woord.ToCharArray();
+                int lengteLijntjes = lijntjes.Length;
+                for (int i = 0; i < lengteLijntjes; i++)
+                {
+                    txtResultaat.Text += "*";
+                }
+                verbergKnopChecker = true;
             }
-            verberg = true;
-            //raadknop verbergen
-            btnRaad.IsEnabled = true;
-            //eerste knoppen verbergen
-            btnVerberg.Visibility = Visibility.Hidden;
-            lblWoord.Visibility = Visibility.Hidden;
-            btnHint.Visibility = Visibility.Visible;
-            //labels laten tonen
-            lblLevens.Visibility = Visibility.Visible;
-            lblJuist.Visibility = Visibility.Visible;
-            lblFout.Visibility = Visibility.Visible;
-            txtResultaat.Text = string.Empty;
-            lblTimer.Visibility = Visibility.Visible;
-            btnRaad.Visibility = Visibility.Visible;
-            //lijntjes genereren
-            char[] lijntjes = woord.ToCharArray();
-            int lengteLijntjes = lijntjes.Length;
-            for (int i = 0; i < lengteLijntjes; i++)
-            {
-                txtResultaat.Text += "*";
-            }
-            knop = true;
         }
         private void ScoreGeordend()
         {
+            //score geordend op levens
             string time = DateTime.Now.ToString("hh:mm:ss");
-            if (counterr == 10)
+            if (levensCounter == 10)
             {
                 //oplossing voor bug waar 10 altijd na sorteren onder aan de lijst stond
                 tienbug = true;
-                spelersTop.Add($"\n\t   {counterr}   -   {spelerNaam}   {time}");
+                spelersTop.Add($"\n\t   {levensCounter}   -   {spelerNaam}   {time}");
             }
             else
             {
-                spelers.Add($"\n\t   {counterr}   -   {spelerNaam}   {time}");
+                spelers.Add($"\n\t   {levensCounter}   -   {spelerNaam}   {time}");
             }
             txtHighscore.Text = string.Empty;
             txtHighscore.Text = $"\t\tHighscore\n";
@@ -480,9 +368,9 @@ namespace Galgje
         {
             string time = DateTime.Now.ToString("hh:mm:ss");
             naam.Add(spelerNaam);
-            score.Add(counterr);
+            score.Add(levensCounter);
             tijd.Add(time);
-            //txtHighscore.Text += $"\n\t   {spelerNaam}   -   {counterr}   ({time})";
+            //txtHighscore.Text += $"\n\t   {spelerNaam}   -   {levensCounter}   ({time})";
             txtHighscore.Text = string.Empty;
             txtHighscore.Text = $"\t\tHighscore";
             for (int i = 0; i < naam.Count; i++)
@@ -492,10 +380,16 @@ namespace Galgje
         }
         private void Highscore()
         {
-            string currentPlayer = $"Speler {speler}";
-            spelerNaam = Microsoft.VisualBasic.Interaction.InputBox($"Vul uw naam in.", "Highscore", currentPlayer);
-            if (scoreboard == false)
+            string currentPlayer = $"Speler {spelerCount}";
+            if (scoreboardChecker == false)
             {
+                spelerNaam = Microsoft.VisualBasic.Interaction.InputBox($"Vul uw naam in.", "Highscore", currentPlayer);
+                //ScoreGeordend();
+                ScoreOngeordend();
+            }
+            else if (welOpScorebord == true)
+            {
+                spelerNaam = Microsoft.VisualBasic.Interaction.InputBox($"Vul uw naam in.", "Highscore", currentPlayer);
                 //ScoreGeordend();
                 ScoreOngeordend();
             }
@@ -527,8 +421,9 @@ namespace Galgje
             }
             if (gelijk == false)
             {
+                //stickman tonen op basis van levens
                 fout += letter;
-                switch (counter)
+                switch (galgCounter)
                 {
                     case 1:
                         one.Visibility = Visibility.Visible;
@@ -561,9 +456,9 @@ namespace Galgje
                         nine.Visibility = Visibility.Visible;
                         break;
                 }
-                counter++;
-                counterr--;
-                if (counterr ==0)
+                galgCounter++;
+                levensCounter--;
+                if (levensCounter ==0)
                 {
                     txtBack.Visibility = Visibility.Visible;
                     txtBack.Background = Brushes.Red;
@@ -588,24 +483,24 @@ namespace Galgje
         {
             if (btnSingle.Visibility == Visibility.Visible)
             {
-                //dit zorgt ervoor dat niet onnodig extra spelers gecreëerd worden indien speler op hoofdscherm bevind
+                //dit zorgt ervoor dat niet onnodig extra spelers gecreëerd worden indien gebruiker zich op hoofdscherm bevind
             }
             else
             {
-                speler++;
+                spelerCount++;
             }
             txtBack.Visibility = Visibility.Hidden;
             txtBack.Background = Brushes.Red;
             btnRaad.IsEnabled = false;
-            verberg = false;
+            verbergChecker = false;
             keys.IsEnabled = true;
             woord = string.Empty;
             geradenWoord = string.Empty;
             txtResultaat.Text = string.Empty;
             txtLetter.Text = string.Empty;
             moeilijkheid = true;
-            spelgespeeld = true;
-            scoreboard = false;
+            spelGespeeld = true;
+            scoreboardChecker = false;
             hintMogelijk = true;
             letteringegeven = false;
             hintCounter = 0;
@@ -635,17 +530,19 @@ namespace Galgje
             verloren.Visibility = Visibility.Hidden;
             gewonnen.Visibility = Visibility.Hidden;
             spelerNaam = String.Empty; //naam leegmaken
+            welOpScorebord = false;
 
 
             lblJuist.Content = "Juiste:";
             lblFout.Content = "Foute:";
+            modusChecker = String.Empty;
 
             juist = String.Empty;
             fout = String.Empty;
 
             
-            counterr = 10;
-            counter = 1;
+            levensCounter = 10;
+            galgCounter = 1;
             
             lblTimer.Visibility = Visibility.Hidden;
             Tikker.Stop();
@@ -654,49 +551,47 @@ namespace Galgje
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
+            modusChecker = "single";
             //btnSingle
             Moeilijkheidsgraad();
-                random = rndGetal.Next(100);
-                for (int i = 0; i < 100; i++)
+            random = rndGetal.Next(100);
+            for (int i = 0; i < 100; i++)
+            {
+                if (i == random)
                 {
-                    if (i == random)
-                    {
-                        woord = galgjeWoorden[i];
-                        btnVerberg_Click(null, null);
-                    }
+                    woord = galgjeWoorden[i];
+                    btnVerberg_Click(null, null);
                 }
-                Hoofdscherm();
-                keys.Visibility = Visibility.Visible;
-                KeysTonen();
-                txtResultaat.Visibility = Visibility.Visible;
+            }
+            Hoofdscherm();
+            keys.Visibility = Visibility.Visible;
+            KeysTonen();
+            txtResultaat.Visibility = Visibility.Visible;
             
         }
 
         private void btnMulti_Click(object sender, RoutedEventArgs e)
         {
+            modusChecker = "multi";
             Moeilijkheidsgraad();
             Hoofdscherm();
             GeefEenWoordIn();
             KeysTonen();
-            knop = false;
+            verbergKnopChecker = false;
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             
             Button btn = (Button)sender;
-            if (knop == true)//enkel als woord al ingegeven is
+            if (verbergKnopChecker == true)//enkel als woord al ingegeven is
             {
                 letteringegeven = true;
                 btn.Visibility = Visibility.Hidden;//wegvallen van knoppen na druk
             }
-            else
-            {
-
-            }
             
             letter = string.Empty;
-            if (verberg == true)
+            if (verbergChecker == true)
             {
                 txtLetter.Text += btn.Name;
             }
@@ -710,7 +605,7 @@ namespace Galgje
 
         private void btnHint_Click(object sender, RoutedEventArgs e)
         {
-            scoreboard = true;
+            scoreboardChecker = true;
             if (hintMogelijk == true)
             {
                 MessageBox.Show("U kan enkel een hint opvragen tijdens het spel.");
@@ -748,18 +643,19 @@ namespace Galgje
                         //trekt een leven af na hint
                         /*
                         lblLevens.Content = String.Empty;
-                        counterr -= 1;
-                        lblLevens.Content = $"{counterr} levens";
+                        levensCounter -= 1;
+                        lblLevens.Content = $"{levensCounter} levens";
                         */
                     }
                     else if (letteringegeven == false)
                     {
                         MessageBox.Show("Druk eerst op een letter.");
+                        welOpScorebord = true;// als dit niet uitgevoerd werd zou gebruiker niet op scoreboard komen terwijl deze geen hint gebruikt heeft
                     }
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("U kan enkel tijdens een hint opvragen tijdens het spel.");
+                    MessageBox.Show("U kan enkel een hint opvragen tijdens het spel.");
                 }
             }
         }
@@ -791,7 +687,7 @@ namespace Galgje
                 Compare();
                 lblFout.Content = $"Foute:\n{fout}";
                 lblJuist.Content = $"Juiste:{juist}";
-                lblLevens.Content = $"{counterr} levens";
+                lblLevens.Content = $"{levensCounter} levens";
                 maxTijd = moeilijkheidsgraad;
             }
             else if (letteringegeven == false)
@@ -799,9 +695,7 @@ namespace Galgje
                 MessageBox.Show("Druk eerst op een letter.");
             }
 
-            
             //oude methode om volledig woord te vergelijken
-
             //if (woord != geradenwoord)
             //{
             //    levens -= 1;
