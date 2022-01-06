@@ -28,7 +28,7 @@ namespace Galgje
         char randomLetter, hintLetter;
         int counter = 1, counterr=10, maxTijd, random, tijdmonitor, moeilijkheidsgraad, speler = 1, hintCounter = 0, hintMoeilijkheid;
         DispatcherTimer Tikker = new DispatcherTimer();
-        bool verberg = false, gelijk = false, knop = false, hintMogelijk = true, spelgespeeld = false, moeilijkheid = true, scoreboard = false, tienbug= false;
+        bool verberg = false, gelijk = false, knop = false, hintMogelijk = true, spelgespeeld = false, moeilijkheid = true, scoreboard = false, tienbug= false, letteringegeven = false;
         Random rndGetal = new Random();
         List<string> naam = new List<string>();
         List<int> score = new List<int>();
@@ -265,7 +265,7 @@ namespace Galgje
         {
             InitializeComponent();
             txtBack.Opacity = 0.745;
-            txtHighscore.Text += $"\t\tHighscore";
+            txtHighscore.Text += $"Er zijn nog geen highscores beschikbaar.";
         }
         private void stickmanVerdwijn()
         {
@@ -325,10 +325,6 @@ namespace Galgje
             {
                 txtHighscore.Visibility = Visibility.Visible;
             }
-            else
-            {
-
-            }
         }
 
         private void MnuToetsen_Click(object sender, RoutedEventArgs e)
@@ -368,10 +364,13 @@ namespace Galgje
 
         private void MnuHighscore_MouseLeave(object sender, MouseEventArgs e)
         {
-            txtHighscore.Visibility = Visibility.Hidden;
-            if (spelgespeeld == false)
+            if (lblEindwoord.Visibility != Visibility.Visible) //zorgt ervoor dat txt highscore niet verdwijnt op eindscherm
             {
-                txtHighscore.Text = $"\t\tHighscore";
+                txtHighscore.Visibility = Visibility.Hidden;
+                if (spelgespeeld == false)
+                {
+                    txtHighscore.Text = $"\t\tHighscore";
+                }
             }
         }
 
@@ -587,7 +586,14 @@ namespace Galgje
         }
         private void btnNieuw_Click(object sender, RoutedEventArgs e)
         {
-            speler++;
+            if (btnSingle.Visibility == Visibility.Visible)
+            {
+                //dit zorgt ervoor dat niet onnodig extra spelers gecreëerd worden indien speler op hoofdscherm bevind
+            }
+            else
+            {
+                speler++;
+            }
             txtBack.Visibility = Visibility.Hidden;
             txtBack.Background = Brushes.Red;
             btnRaad.IsEnabled = false;
@@ -601,6 +607,7 @@ namespace Galgje
             spelgespeeld = true;
             scoreboard = false;
             hintMogelijk = true;
+            letteringegeven = false;
             hintCounter = 0;
 
             lblNietGeraden.Visibility = Visibility.Hidden;
@@ -649,19 +656,20 @@ namespace Galgje
         {
             //btnSingle
             Moeilijkheidsgraad();
-            random = rndGetal.Next(100);
-            for (int i = 0; i < 100; i++)
-            {
-                if (i == random)
+                random = rndGetal.Next(100);
+                for (int i = 0; i < 100; i++)
                 {
-                    woord = galgjeWoorden[i];
-                    btnVerberg_Click(null, null);
+                    if (i == random)
+                    {
+                        woord = galgjeWoorden[i];
+                        btnVerberg_Click(null, null);
+                    }
                 }
-            }
-            Hoofdscherm();
-            keys.Visibility = Visibility.Visible;
-            KeysTonen();
-            txtResultaat.Visibility = Visibility.Visible;
+                Hoofdscherm();
+                keys.Visibility = Visibility.Visible;
+                KeysTonen();
+                txtResultaat.Visibility = Visibility.Visible;
+            
         }
 
         private void btnMulti_Click(object sender, RoutedEventArgs e)
@@ -673,17 +681,14 @@ namespace Galgje
             knop = false;
         }
 
-        private void button(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
+            
             Button btn = (Button)sender;
-            if (knop == true)
+            if (knop == true)//enkel als woord al ingegeven is
             {
-                btn.Visibility = Visibility.Hidden;
+                letteringegeven = true;
+                btn.Visibility = Visibility.Hidden;//wegvallen van knoppen na druk
             }
             else
             {
@@ -714,36 +719,43 @@ namespace Galgje
             {
                 try
                 {
-                    hintCounter++;
-                    if (hintCounter < hintMoeilijkheid)
+                    if (letteringegeven == true)
                     {
-                        random = rndGetal.Next(26);
-                        for (int i = 0; i < alfabet.Length; i++)
+                        hintCounter++;
+                        if (hintCounter < hintMoeilijkheid)
                         {
-                            if (i == random)
+                            random = rndGetal.Next(26);
+                            for (int i = 0; i < alfabet.Length; i++)
                             {
-                                randomLetter = alfabet[i];
+                                if (i == random)
+                                {
+                                    randomLetter = alfabet[i];
+                                }
                             }
+                            for (int i = 0; i < woord.Length; i++)
+                            {
+                                if (woord[i] != randomLetter)
+                                {
+                                    hintLetter = randomLetter;
+                                }
+                            }
+                            MessageBox.Show(Convert.ToString(hintLetter));
                         }
-                        for (int i = 0; i < woord.Length; i++)
+                        else
                         {
-                            if (woord[i] != randomLetter)
-                            {
-                                hintLetter = randomLetter;
-                            }
+                            MessageBox.Show($"U heeft het maximum aantal hints ({hintMoeilijkheid - 1}) gebruikt.");
                         }
-                        MessageBox.Show(Convert.ToString(hintLetter));
+                        //trekt een leven af na hint
+                        /*
+                        lblLevens.Content = String.Empty;
+                        counterr -= 1;
+                        lblLevens.Content = $"{counterr} levens";
+                        */
                     }
-                    else
+                    else if (letteringegeven == false)
                     {
-                        MessageBox.Show($"U heeft het maximum aantal hints ({hintMoeilijkheid - 1}) gebruikt.");
+                        MessageBox.Show("Druk eerst op een letter.");
                     }
-                    //trekt een leven af na hint
-                    /*
-                    lblLevens.Content = String.Empty;
-                    counterr -= 1;
-                    lblLevens.Content = $"{counterr} levens";
-                    */
                 }
                 catch (Exception)
                 {
@@ -771,14 +783,23 @@ namespace Galgje
         
         private void btnRaad_Click(object sender, RoutedEventArgs e)
         {
-            txtLetter.Text = string.Empty;
-            geradenWoord += txtResultaat.Text;
-            //geradenWoord += geradenWoord.ToLower();
-            Compare();
-            lblFout.Content = $"Foute:\n{fout}";
-            lblJuist.Content = $"Juiste:{juist}";
-            lblLevens.Content = $"{counterr} levens";
-            maxTijd = moeilijkheidsgraad;
+            if (letteringegeven == true)
+            {
+                txtLetter.Text = string.Empty;
+                geradenWoord += txtResultaat.Text;
+                //geradenWoord += geradenWoord.ToLower();
+                Compare();
+                lblFout.Content = $"Foute:\n{fout}";
+                lblJuist.Content = $"Juiste:{juist}";
+                lblLevens.Content = $"{counterr} levens";
+                maxTijd = moeilijkheidsgraad;
+            }
+            else if (letteringegeven == false)
+            {
+                MessageBox.Show("Druk eerst op een letter.");
+            }
+
+            
             //oude methode om volledig woord te vergelijken
 
             //if (woord != geradenwoord)
