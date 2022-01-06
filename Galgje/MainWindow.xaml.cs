@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Threading;
 using System.Windows.Threading;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace Galgje
 {
@@ -25,11 +26,15 @@ namespace Galgje
     {
         string woord, geradenWoord, juist, fout, letter, lijnen, spelerNaam;
         char randomLetter, hintLetter;
-        int counter = 1, counterr=10, maxTijd, random, tijdmonitor, moeilijkheidsgraad;
+        int counter = 1, counterr=10, maxTijd, random, tijdmonitor, moeilijkheidsgraad, speler = 1;
         DispatcherTimer Tikker = new DispatcherTimer();
-        bool verberg = false, gelijk = false, knop = false, eindscherm = false, spelgespeeld = false, moeilijkheid = true;
+        bool verberg = false, gelijk = false, knop = false, hintMogelijk = true, spelgespeeld = false, moeilijkheid = true, scoreboard = false, tienbug= false;
         Random rndGetal = new Random();
-        DateTime vandaag = DateTime.Today;
+        List<string> naam = new List<string>();
+        List<int> score = new List<int>();
+        List<string> tijd = new List<string>();
+        List<string> spelers = new List<string>();
+        List<string> spelersTop = new List<string>();
         private string[] galgjeWoorden = new string[]
         {
             "grafeem",
@@ -204,6 +209,7 @@ namespace Galgje
             imgLogoaltijdaanwezig.Visibility = Visibility.Visible;
             spelgespeeld = true;
             moeilijkheid = false;
+            hintMogelijk = false;
         }
 
         private void GeefEenWoordIn()
@@ -223,7 +229,7 @@ namespace Galgje
         }
         private void Moeilijkheidsgraad()
         {
-            string answer = Microsoft.VisualBasic.Interaction.InputBox($"[E]asy - [M]edium - [H]ard - [V]eteran\nVul een letter in\nMedium indien leeg.","Moeilijkheidsgraad");
+            string answer = Microsoft.VisualBasic.Interaction.InputBox($"[E]asy - [M]edium - [H]ard - [V]eteran\nVul een letter in","Moeilijkheidsgraad","m");
             if (answer == "e" || answer == "E")
             {
                 moeilijkheidsgraad = 21;
@@ -294,7 +300,7 @@ namespace Galgje
             eindknoppen.Visibility = Visibility.Visible;
             txtResultaat.Visibility = Visibility.Hidden;
             btnRaad.Visibility = Visibility.Hidden;
-            eindscherm = true;
+            imgLogoaltijdaanwezig.Visibility = Visibility.Hidden;
             
             stickmanVerdwijn();
         }
@@ -430,11 +436,69 @@ namespace Galgje
             }
             knop = true;
         }
-
-        private void Highscore()
+        private void ScoreGeordend()
         {
             string time = DateTime.Now.ToString("hh:mm:ss");
-            txtHighscore.Text += $"\n\t   {spelerNaam}   -   {counterr}   ({time})";
+            if (counterr == 10)
+            {
+                //oplossing voor bug waar 10 altijd na sorteren onder aan de lijst stond
+                tienbug = true;
+                spelersTop.Add($"\n\t   {counterr}   -   {spelerNaam}   {time}");
+            }
+            else
+            {
+                spelers.Add($"\n\t   {counterr}   -   {spelerNaam}   {time}");
+            }
+            txtHighscore.Text = string.Empty;
+            txtHighscore.Text = $"\t\tHighscore\n";
+            spelers.Sort();
+            spelers.Reverse();
+            if (tienbug == true)
+            {
+                for (int i = 0; i < spelersTop.Count; i++)
+                {
+                    txtHighscore.Text += $"{spelersTop[i]}";
+                }
+                for (int i = 0; i < spelers.Count; i++)
+                {
+                    txtHighscore.Text += $"{spelers[i]}";
+                }
+            }
+            else
+            {
+                for (int i = 0; i < spelers.Count; i++)
+                {
+                    txtHighscore.Text += $"{spelers[i]}";
+                }
+            }
+        }
+        private void ScoreOngeordend()
+        {
+            string time = DateTime.Now.ToString("hh:mm:ss");
+            naam.Add(spelerNaam);
+            score.Add(counterr);
+            tijd.Add(time);
+            //txtHighscore.Text += $"\n\t   {spelerNaam}   -   {counterr}   ({time})";
+            txtHighscore.Text = string.Empty;
+            txtHighscore.Text = $"\t\tHighscore";
+            for (int i = 0; i < naam.Count; i++)
+            {
+                txtHighscore.Text += $"\n\t   {naam[i]}   -   {score[i]}   ({tijd[i]})";
+            }
+        }
+        private void Highscore()
+        {
+            string currentPlayer = $"Speler {speler}";
+            spelerNaam = Microsoft.VisualBasic.Interaction.InputBox($"Vul uw naam in.", "Highscore", currentPlayer);
+            if (scoreboard == false)
+            {
+                //ScoreGeordend();
+                ScoreOngeordend();
+            }
+            else
+            {
+                MessageBox.Show("U heeft een hint gebruikt en komt niet op het scoreboard.");
+            }
         }
         private void Compare()
         {
@@ -500,7 +564,7 @@ namespace Galgje
                     txtBack.Visibility = Visibility.Visible;
                     txtBack.Background = Brushes.Red;
                     eindbuttons($"U heeft verloren. Het juiste woord was {woord}.");
-                    spelerNaam = Microsoft.VisualBasic.Interaction.InputBox($"Vul uw naam in.", "Highscore");
+                    verloren.Visibility = Visibility.Visible;
                     Highscore();
                     txtBack.Visibility = Visibility.Hidden;
                 }
@@ -511,19 +575,14 @@ namespace Galgje
                 txtBack.Visibility = Visibility.Visible;
                 txtBack.Background = Brushes.Green;
                 eindbuttons($"U heeft het woord {woord} geraden!");
-                spelerNaam = Microsoft.VisualBasic.Interaction.InputBox($"Vul uw naam in.", "Highscore");
+                gewonnen.Visibility = Visibility.Visible;
                 Highscore();
                 txtBack.Visibility = Visibility.Hidden;
             }
         }
-
-        private void btnSingle_MouseEnter(object sender, MouseEventArgs e)
-        {
-
-        }
-
         private void btnNieuw_Click(object sender, RoutedEventArgs e)
         {
+            speler++;
             txtBack.Visibility = Visibility.Hidden;
             txtBack.Background = Brushes.Red;
             btnRaad.IsEnabled = false;
@@ -535,6 +594,8 @@ namespace Galgje
             txtLetter.Text = string.Empty;
             moeilijkheid = true;
             spelgespeeld = true;
+            scoreboard = false;
+            hintMogelijk = true;
 
             lblNietGeraden.Visibility = Visibility.Hidden;
             lblGeraden.Visibility = Visibility.Hidden;
@@ -558,8 +619,9 @@ namespace Galgje
             btnExit.Visibility = Visibility.Visible;
             keys.Visibility = Visibility.Hidden;
             btnRaad.Visibility = Visibility.Hidden;
+            verloren.Visibility = Visibility.Hidden;
+            gewonnen.Visibility = Visibility.Hidden;
             spelerNaam = String.Empty; //naam leegmaken
-            eindscherm = true;
 
 
             lblJuist.Content = "Juiste:";
@@ -579,7 +641,7 @@ namespace Galgje
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            //nieuw spel knop
+            //btnSingle
             Moeilijkheidsgraad();
             random = rndGetal.Next(100);
             for (int i = 0; i < 100; i++)
@@ -637,9 +699,10 @@ namespace Galgje
 
         private void btnHint_Click(object sender, RoutedEventArgs e)
         {
-            if (eindscherm == true)
+            scoreboard = true;
+            if (hintMogelijk == true)
             {
-                MessageBox.Show("U kan enkel tijdens een hint opvragen tijdens het spel.");
+                MessageBox.Show("U kan enkel een hint opvragen tijdens het spel.");
             }
             else
             {

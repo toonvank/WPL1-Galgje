@@ -107,7 +107,7 @@
             <Button x:Name="btnNieuw" Content="New Game" Click="btnNieuw_Click" Background="#FF3D9AFA" FontFamily="Berlin Sans FB" FontSize="30" Foreground="White" BorderBrush="Black" BorderThickness="2px" HorizontalContentAlignment="Center" Padding="5px" Visibility="Visible" Height="47" Width="286" Margin="5px"/>
             <Button x:Name="btnExit2" Content="Exit" Click="btnExit_Click" Background="#FF3D9AFA" FontFamily="Berlin Sans FB" FontSize="30" Foreground="White" BorderBrush="Black" BorderThickness="2px" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" Padding="5px" Height="47" Width="285" Margin="5px"/>
         </StackPanel>
-        <TextBlock x:Name="txtHighscore" Grid.Column="1" HorizontalAlignment="Center" Margin="0,232,0,0" TextWrapping="Wrap" Visibility="Hidden" VerticalAlignment="Top" Height="129" Grid.RowSpan="2" Width="294" FontFamily="Berlin Sans FB" FontSize="15" Foreground="White" Text="">
+        <TextBlock x:Name="txtHighscore" Grid.Column="1" HorizontalAlignment="Center" Margin="0,232,0,0" TextWrapping="Wrap" Visibility="Hidden" VerticalAlignment="Top" Height="129" Grid.RowSpan="2" Width="294" FontFamily="Berlin Sans FB" FontSize="15" Foreground="White" Text="" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
             <TextBlock.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF1A63F3" Offset="0"/>
@@ -123,6 +123,8 @@
             <MenuItem x:Name="Difficulty" Header="Moeilijkheidsgraad" Click="Difficulty_Click"/>
             <MenuItem x:Name="MnuToetsen" Header="Toon Toetsen" Click="MnuToetsen_Click"/>
         </Menu>
+        <Image x:Name="verloren" Grid.ColumnSpan="3" Margin="21,15,14,164" Source="/lose.png" Stretch="Fill" Visibility="Hidden"/>
+        <Image x:Name="gewonnen" Grid.ColumnSpan="3" Margin="21,18,18,167" Source="/win.png" Stretch="Fill" Visibility="Hidden"/>
     </Grid>
 
 </Window>
