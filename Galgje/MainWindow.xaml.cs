@@ -22,6 +22,7 @@ namespace Galgje
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// AllowsTransparency="True" aan top van xaml normaal actief, maar dat maakt het niet mogelijk om scaling te testen. zorgt ervoor dat witte bar tevoorschijn komt
     public partial class MainWindow : Window
     {
         #region
