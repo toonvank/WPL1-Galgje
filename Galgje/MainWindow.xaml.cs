@@ -24,6 +24,8 @@ namespace Galgje
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region
+        //variabelen
         string woord, geradenWoord, juist, fout, letter, lijnen, spelerNaam, modusChecker;
         char randomLetter, hintLetter;
         int galgCounter = 1, levensCounter=10, maxTijd, random, tijdmonitor, moeilijkheidsgraad, spelerCount = 1, hintCounter = 0, hintMoeilijkheid;
@@ -46,6 +48,7 @@ namespace Galgje
             //alfabet voor hint
             'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
         };
+        #endregion
 
         private void KeysTonen()
         {
@@ -88,6 +91,7 @@ namespace Galgje
             spelGespeeld = true;
             moeilijkheid = false;
             hintMogelijk = false;
+            lblNaam.Visibility = Visibility.Hidden;
         }
 
         private void GeefEenWoordIn()
@@ -531,6 +535,7 @@ namespace Galgje
             gewonnen.Visibility = Visibility.Hidden;
             spelerNaam = String.Empty; //naam leegmaken
             welOpScorebord = false;
+            lblNaam.Visibility = Visibility.Visible;
 
 
             lblJuist.Content = "Juiste:";
