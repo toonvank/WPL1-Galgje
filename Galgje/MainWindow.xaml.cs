@@ -29,7 +29,7 @@ namespace Galgje
         //variabelen
         string woord, geradenWoord, juist, fout, letter, lijnen, spelerNaam, modusChecker;
         char randomLetter, hintLetter;
-        int galgCounter = 1, levensCounter=10, maxTijd, random, tijdmonitor, moeilijkheidsgraad, spelerCount = 1, hintCounter = 0, hintMoeilijkheid;
+        int galgCounter = 1, levensCounter=10, maxTijd, random, tijdmonitor, moeilijkheidsgraad, spelerCount = 0, hintCounter = 0, hintMoeilijkheid;
         DispatcherTimer Tikker = new DispatcherTimer();
         bool verbergChecker = false, gelijk = false, verbergKnopChecker = false, hintMogelijk = true, spelGespeeld = false, moeilijkheid = true, scoreboardChecker = false, tienbug= false, letteringegeven = false, welOpScorebord = false;
         Random rndGetal = new Random();
@@ -110,6 +110,12 @@ namespace Galgje
             lblWoord.Visibility = Visibility.Hidden;
             btnVerberg.Visibility = Visibility.Hidden;
         }
+
+        private void lblNaam_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show($"Hangman\n2021 - Made by Toon Van Kimmenade \nPXL 1PROG");
+        }
+
         private void Moeilijkheidsgraad()
         {
             //moeilijkheidsgraad kiezen
@@ -151,7 +157,8 @@ namespace Galgje
             txtBack.Opacity = 0.745;
 
             //standaard txtHighscore waarde
-            txtHighscore.Text += $"     Er zijn nog geen highscores beschikbaar.";
+            txtHighscore.Text += $"Er zijn nog geen highscores beschikbaar.";
+            txtHighscore_Copy.Text += $"Er zijn nog geen highscores beschikbaar.";
         }
         private void stickmanVerdwijn()
         {
@@ -193,11 +200,19 @@ namespace Galgje
             btnRaad.Visibility = Visibility.Hidden;
             stckRaad.Visibility = Visibility.Hidden;
             imgLogoaltijdaanwezig.Visibility = Visibility.Hidden;
+            stckEindwoord.Visibility = Visibility.Visible;
+            if (btnSingle.Visibility == Visibility.Visible)
+            {
+                //dit zorgt ervoor dat niet onnodig extra spelers gecreëerd worden indien gebruiker zich op hoofdscherm bevind
+            }
+            else
+            {
+                spelerCount++;
+            }
             stickmanVerdwijn();
         }
         private void Timer()
         {
-            window.Background = Brushes.White;
             // Timer laten aflopen om de seconde.
             Tikker.Tick += new EventHandler(DispatcherTimer_Tick);
             Tikker.Interval = new TimeSpan(0, 0, 1);
@@ -207,10 +222,15 @@ namespace Galgje
 
         private void MnuHighscore_MouseEnter(object sender, MouseEventArgs e)
         {
-            if (spelGespeeld == true)
+            if (stckEindwoord.Visibility == Visibility.Hidden)//highscore wordt niet getoond op eindscherm
             {
-                txtHighscore.Visibility = Visibility.Visible;
+                if (spelGespeeld == true)
+                {
+                    txtHighscore_Copy.Visibility = Visibility.Visible;
+                }
             }
+            
+            
         }
 
         private void MnuToetsen_Click(object sender, RoutedEventArgs e)
@@ -250,12 +270,13 @@ namespace Galgje
 
         private void MnuHighscore_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (lblEindwoord.Visibility != Visibility.Visible) //zorgt ervoor dat txt highscore niet verdwijnt op eindscherm
+            if (stckEindwoord.Visibility != Visibility.Visible) //zorgt ervoor dat txt highscore niet verdwijnt op eindscherm
             {
-                txtHighscore.Visibility = Visibility.Hidden;
+                txtHighscore_Copy.Visibility = Visibility.Hidden;
                 if (spelGespeeld == false)
                 {
-                    txtHighscore.Text = $"\t\tHighscore";
+                    txtHighscore.Text = $"Highscore";
+                    txtHighscore_Copy.Text = $"Highscore";
                 }
             }
         }
@@ -323,6 +344,7 @@ namespace Galgje
                 txtResultaat.Text = string.Empty;
                 lblTimer.Visibility = Visibility.Visible;
                 btnRaad.Visibility = Visibility.Visible;
+                stckRaad.Visibility = Visibility.Visible;
                 //sterren genereren
                 char[] lijntjes = woord.ToCharArray();
                 int lengteLijntjes = lijntjes.Length;
@@ -348,7 +370,8 @@ namespace Galgje
                 spelers.Add($"\n\t   {levensCounter}   -   {spelerNaam}   {time}");
             }
             txtHighscore.Text = string.Empty;
-            txtHighscore.Text = $"\t\tHighscore\n";
+            txtHighscore.Text = $"Highscore\n";
+            txtHighscore_Copy.Text = $"Highscore\n";
             spelers.Sort();
             spelers.Reverse();
             if (tienbug == true)
@@ -356,10 +379,12 @@ namespace Galgje
                 for (int i = 0; i < spelersTop.Count; i++)
                 {
                     txtHighscore.Text += $"{spelersTop[i]}";
+                    txtHighscore_Copy.Text += $"{spelersTop[i]}";
                 }
                 for (int i = 0; i < spelers.Count; i++)
                 {
                     txtHighscore.Text += $"{spelers[i]}";
+                    txtHighscore_Copy.Text += $"{spelers[i]}";
                 }
             }
             else
@@ -367,6 +392,7 @@ namespace Galgje
                 for (int i = 0; i < spelers.Count; i++)
                 {
                     txtHighscore.Text += $"{spelers[i]}";
+                    txtHighscore_Copy.Text += $"{spelers[i]}";
                 }
             }
         }
@@ -377,11 +403,14 @@ namespace Galgje
             score.Add(levensCounter);
             tijd.Add(time);
             //txtHighscore.Text += $"\n\t   {spelerNaam}   -   {levensCounter}   ({time})";
+            //txtHighscore_Copy.Text += $"\n\t   {spelerNaam}   -   {levensCounter}   ({time})";
             txtHighscore.Text = string.Empty;
-            txtHighscore.Text = $"\t\tHighscore";
+            txtHighscore.Text = $"Highscore\n";
+            txtHighscore_Copy.Text = $"Highscore\n";
             for (int i = 0; i < naam.Count; i++)
             {
-                txtHighscore.Text += $"\n\t   {naam[i]}   -   {score[i]}   ({tijd[i]})";
+                txtHighscore.Text += $"{naam[i]}   -   {score[i]}   ({tijd[i]})\n";
+                txtHighscore_Copy.Text += $"{naam[i]}   -   {score[i]}   ({tijd[i]})\n";
             }
         }
         private void Highscore()
@@ -487,14 +516,6 @@ namespace Galgje
         }
         private void btnNieuw_Click(object sender, RoutedEventArgs e)
         {
-            if (btnSingle.Visibility == Visibility.Visible)
-            {
-                //dit zorgt ervoor dat niet onnodig extra spelers gecreëerd worden indien gebruiker zich op hoofdscherm bevind
-            }
-            else
-            {
-                spelerCount++;
-            }
             txtBack.Visibility = Visibility.Hidden;
             txtBack.Background = Brushes.Red;
             btnRaad.IsEnabled = false;
@@ -536,13 +557,14 @@ namespace Galgje
             stckRaad.Visibility = Visibility.Hidden;
             verloren.Visibility = Visibility.Hidden;
             gewonnen.Visibility = Visibility.Hidden;
+            stckEindwoord.Visibility = Visibility.Hidden;
             spelerNaam = String.Empty; //naam leegmaken
             welOpScorebord = false;
             lblNaam.Visibility = Visibility.Visible;
 
 
-            lblJuist.Content = "Juiste:";
-            lblFout.Content = "Foute:";
+            lblJuist.Content = "Juist:";
+            lblFout.Content = "Fout:";
             modusChecker = String.Empty;
 
             juist = String.Empty;

@@ -8,7 +8,7 @@
         WindowStyle="None"
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
-        Title="Galgje" Height="536" Width="490">
+        Title="Galgje" Height="536" Width="490" HorizontalContentAlignment="Left" VerticalContentAlignment="Top">
     <Grid x:Name="window">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="107*"/>
@@ -27,14 +27,15 @@
 
         <!-- Bacground -->
         <Image Source="/new.png" Stretch="Fill"  Grid.ColumnSpan="3" Grid.RowSpan="4" Margin="0,0,-2,0"/>
-        <TextBlock x:Name="txtBack" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="3" Height="528" Width="492" Grid.RowSpan="5" Visibility="Hidden">
-            <TextBlock.Background>
-                <SolidColorBrush Color="Red" Opacity="0.745"/>
-            </TextBlock.Background>
-        </TextBlock>
-
+        <DockPanel Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="3" Grid.RowSpan="5">
+            <TextBlock x:Name="txtBack" TextWrapping="Wrap" Visibility="Hidden" DockPanel.Dock="Top" Margin="0,0,0,0" Opacity="0.785">
+                <TextBlock.Background>
+                    <SolidColorBrush Color="Red" Opacity="1"/>
+                </TextBlock.Background>
+            </TextBlock>
+        </DockPanel>
         <!-- Hoofdscherm logo-->
-        <Image x:Name="igmLogo" Margin="0,-26,0,126" Source="/logo 3.png" Stretch="Fill" Grid.ColumnSpan="3" Visibility="Visible" Grid.RowSpan="3" Width="446" HorizontalAlignment="Center" MaxHeight="320"/>
+        <Image x:Name="igmLogo" Margin="0,-26,-15,126" Source="/logo 3.png" Stretch="Fill" Grid.ColumnSpan="3" Visibility="Visible" Grid.RowSpan="3" Width="446" HorizontalAlignment="Center" MaxHeight="320"/>
         <WrapPanel x:Name="keys" Margin="21,14,13,15" Visibility="Hidden" Grid.ColumnSpan="3" Grid.Row="2">
             <Button x:Name="a" Content="a" Width="40px" FontSize="20" Margin="5px" Click="btnAdd_Click" Background="#FF3D9AFA"  FontFamily="Berlin Sans FB" BorderBrush="Black" BorderThickness="2px" Foreground="White"/>
             <Button x:Name="b" Content="b" Width="40px" FontSize="20" Margin="5px" Click="btnAdd_Click" Background="#FF3D9AFA"  FontFamily="Berlin Sans FB" BorderBrush="Black" BorderThickness="2px" Foreground="White"/>
@@ -65,9 +66,9 @@
         </WrapPanel>
         <!-- Keyboard-->
 
-        <TextBox x:Name="txtResultaat" BorderThickness="0" HorizontalAlignment="Left" Margin="23,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="445" Height="129" FontSize="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Focusable="False" Visibility="Visible" Grid.ColumnSpan="3" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Berlin Sans FB" Grid.RowSpan="3"/>
-        <Label x:Name="lblWoord" Content="Geef een geheim woord in" HorizontalAlignment="Center" Margin="31,101,0,0" VerticalAlignment="Top" FontSize="30" HorizontalContentAlignment="Center" Visibility="Hidden" Grid.ColumnSpan="3" FontFamily="Berlin Sans FB" BorderBrush="Black" Background="{x:Null}" Foreground="White" Grid.RowSpan="2"/>
-        <Label x:Name="lblLevens" Content="10 levens" HorizontalAlignment="Center" Margin="0,113,-10,0" VerticalAlignment="Top" FontSize="20" HorizontalContentAlignment="Center" Visibility="Hidden" FontFamily="Berlin Sans FB" Foreground="White" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
+        <TextBox x:Name="txtResultaat" BorderThickness="0" HorizontalAlignment="Center" Margin="23,167,0,0" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Focusable="False" Visibility="Hidden" Grid.ColumnSpan="3" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Berlin Sans FB" Grid.RowSpan="2"/>
+        <Label x:Name="lblWoord" Content="Geef een geheim woord in:" HorizontalAlignment="Center" Margin="-2,67,0,0" VerticalAlignment="Center" FontSize="30" HorizontalContentAlignment="Center" Visibility="Hidden" Grid.ColumnSpan="3" FontFamily="Berlin Sans FB" BorderBrush="Black" Background="{x:Null}" Foreground="White" Grid.RowSpan="2"/>
+        <Label x:Name="lblLevens" Content="10 levens" HorizontalAlignment="Center" Margin="0,113,-15,0" VerticalAlignment="Top" FontSize="20" HorizontalContentAlignment="Center" Visibility="Hidden" FontFamily="Berlin Sans FB" Foreground="White" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
 
         <!-- Gewonnen/Verloren-->
         <Label x:Name="lblGeraden" Content="Hoera! Je heb hem geraden!" HorizontalAlignment="Left" Margin="54,28,0,0" VerticalAlignment="Top" FontSize="30" Width="430" HorizontalContentAlignment="Center" Visibility="Hidden" Grid.ColumnSpan="3" Height="50"/>
@@ -75,12 +76,12 @@
         <!-- Gewonnen/Verloren-->
 
         <Label x:Name="lblJuist" Content="Juist:" Margin="14,24,0,0" VerticalAlignment="Top" FontSize="20" HorizontalContentAlignment="Left" Visibility="Hidden" Grid.ColumnSpan="2" FontFamily="Berlin Sans FB" Foreground="White" Height="32"/>
-        <Label x:Name="lblFout" Content="Fout:" Margin="14,57,0,0" VerticalAlignment="Top" FontSize="20" HorizontalContentAlignment="Left" Visibility="Hidden" FontFamily="Berlin Sans FB" Foreground="White" Grid.ColumnSpan="2" Height="32"/>
+        <Label x:Name="lblFout" Content="Fout:" Margin="14,57,0,0" VerticalAlignment="Top" FontSize="20" HorizontalContentAlignment="Left" Visibility="Hidden" FontFamily="Berlin Sans FB" Foreground="White" Grid.ColumnSpan="2" Height="65"/>
         <TextBox x:Name="txtLetter" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="67" Height="47" FontSize="30" IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden"/>
 
         <!-- Stickman -->
-        <Label x:Name="lblTimer" Content="00" HorizontalAlignment="Center" Margin="-21,69,-20,0" VerticalAlignment="Center" FontSize="30" Visibility="Hidden" FontFamily="Berlin Sans FB" Foreground="White" HorizontalContentAlignment="Center" Grid.ColumnSpan="1" Grid.Column="1" VerticalContentAlignment="Center"/>
-        <Image x:Name="imgLogoaltijdaanwezig" Margin="0,-40,0,0" Source="/logo 3.png" Stretch="Fill" Visibility="Hidden" Grid.Column="1" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" Height="170" Width="260">
+        <Label x:Name="lblTimer" Content="00" Margin="86,69,73,0" VerticalAlignment="Top" FontSize="30" Visibility="Hidden" FontFamily="Berlin Sans FB" Foreground="White" HorizontalContentAlignment="Center" Grid.ColumnSpan="3" VerticalContentAlignment="Center" Height="67"/>
+        <Image x:Name="imgLogoaltijdaanwezig" Margin="0,-39,4,0" Source="/logo 3.png" Stretch="Fill" Visibility="Hidden" Grid.Column="1" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" Height="179" Width="266">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -98,17 +99,17 @@
             <Button x:Name="btnExit" Content="Exit" Click="btnExit_Click" Background="#FF3D9AFA" FontFamily="Berlin Sans FB" FontSize="30" Foreground="White" BorderBrush="Black" BorderThickness="65,2,2,2" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" Padding="5px" Margin="5,5,5,5"/>
         </StackPanel>
 
-        <Button x:Name="btnVerberg" Content="Verberg" Click="btnVerberg_Click" Background="#FF3D9AFA" FontFamily="Berlin Sans FB" FontSize="30" Foreground="White" BorderBrush="Black" BorderThickness="2px" HorizontalContentAlignment="Center" Padding="5px" Margin="100,13,10,68" Grid.ColumnSpan="2" Visibility="Hidden" Grid.Row="3"/>
-        <Image x:Name="one" Margin="263,0,0,2" Source="/1.png" Stretch="Fill" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Hidden"/>
-        <Image x:Name="two" Margin="263,0,0,2" Source="/2.png" Stretch="Fill" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Hidden"/>
-        <Image x:Name="three" Margin="263,0,0,2" Source="/3.png" Stretch="Fill" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Hidden"/>
-        <Image x:Name="four" Margin="263,0,0,2" Source="/4.png" Stretch="Fill" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Hidden"/>
-        <Image x:Name="five" Margin="263,0,0,2" Source="/5.png" Stretch="Fill" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Hidden"/>
-        <Image x:Name="six" Margin="263,0,0,2" Source="/6.png" Stretch="Fill" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Hidden"/>
-        <Image x:Name="seven" Margin="263,0,0,2" Source="/7.png" Stretch="Fill" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Hidden"/>
-        <Image x:Name="eight" Margin="263,0,0,2" Source="/8.png" Stretch="Fill" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Hidden"/>
-        <Image x:Name="nine" Margin="263,0,0,2" Source="/9.png" Stretch="Fill" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Hidden"/>
-        <Image x:Name="ten" Margin="263,0,0,2" Source="/10.png" Stretch="Fill" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Hidden"/>
+        <Button x:Name="btnVerberg" Content="Verberg" HorizontalAlignment="Stretch" Click="btnVerberg_Click" Background="#FF3D9AFA" FontFamily="Berlin Sans FB" FontSize="30" Foreground="White" BorderBrush="Black" BorderThickness="2px" HorizontalContentAlignment="Center" Padding="0,0,0,0" Margin="0,0,0,0" Visibility="Hidden" Grid.Row="3" VerticalContentAlignment="Stretch" Grid.Column="1" VerticalAlignment="Center"/>
+        <Image x:Name="one" Margin="0,0,0,2" Source="/1.png" Stretch="Fill" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Hidden" HorizontalAlignment="Right" Width="120"/>
+        <Image x:Name="two" Margin="0,0,0,2" Source="/2.png" Stretch="Fill" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Hidden" HorizontalAlignment="Right" Width="120"/>
+        <Image x:Name="three" Margin="0,0,0,2" Source="/3.png" Stretch="Fill" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Hidden" HorizontalAlignment="Right" Width="120"/>
+        <Image x:Name="four" Margin="0,0,0,2" Source="/4.png" Stretch="Fill" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Hidden" HorizontalAlignment="Right" Width="120"/>
+        <Image x:Name="five" Margin="0,0,0,2" Source="/5.png" Stretch="Fill" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Hidden" HorizontalAlignment="Right" Width="120"/>
+        <Image x:Name="six" Margin="0,0,0,2" Source="/6.png" Stretch="Fill" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Hidden" HorizontalAlignment="Right" Width="120"/>
+        <Image x:Name="seven" Margin="0,0,0,2" Source="/7.png" Stretch="Fill" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Hidden" HorizontalAlignment="Right" Width="120"/>
+        <Image x:Name="eight" Margin="0,0,0,2" Source="/8.png" Stretch="Fill" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Hidden" HorizontalAlignment="Right" Width="120"/>
+        <Image x:Name="nine" Margin="0,0,0,2" Source="/9.png" Stretch="Fill" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Hidden" HorizontalAlignment="Right" Width="120"/>
+        <Image x:Name="ten" Margin="0,0,0,2" Source="/10.png" Stretch="Fill" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Hidden" HorizontalAlignment="Right" Width="120"/>
         <StackPanel x:Name="eindknoppen" Margin="86,127,86,17" Visibility="Hidden" Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
             <!-- Hoofdscherm knoppen-->
             <Button x:Name="btnNieuw" Content="New Game" Click="btnNieuw_Click" Background="#FF3D9AFA" FontFamily="Berlin Sans FB" FontSize="30" Foreground="White" BorderBrush="Black" BorderThickness="2px" HorizontalContentAlignment="Center" Padding="5px" Visibility="Visible" Height="47" Width="286" Margin="5px"/>
@@ -124,13 +125,13 @@
         </Menu>
         <Image x:Name="verloren" Grid.ColumnSpan="3" Margin="21,15,14,10" Source="/lose.png" Stretch="Fill" Visibility="Hidden" MaxHeight="120" MaxWidth="500"/>
         <Image x:Name="gewonnen" Grid.ColumnSpan="3" Margin="21,18,18,6" Source="/win.png" Stretch="Fill" Visibility="Hidden" MaxWidth="500" MaxHeight="1200"/>
-        <StackPanel x:Name="stckRaad" Margin="22,0,0,0" Grid.Row="3" Orientation="Horizontal" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden">
-            <Button x:Name="btnHint" Content="Hint" Background="#FF3D9AFA" FontSize="30" Visibility="Visible" Click="btnHint_Click" BorderBrush="Black" BorderThickness="2px" Foreground="White" FontFamily="Berlin Sans FB" Height="47" Width="166" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-            <Button x:Name="btnRaad" Content="Raad" Click="btnRaad_Click" IsEnabled="True" Background="#FF3D9AFA" FontFamily="Berlin Sans FB" FontSize="30" Foreground="White" BorderBrush="Black" BorderThickness="2px" HorizontalContentAlignment="Center" Padding="5px" Visibility="Visible" Height="47" Width="278" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <StackPanel x:Name="stckRaad" Margin="0,0,0,0" Grid.Row="3" Orientation="Horizontal" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden">
+            <Button x:Name="btnHint" Content="Hint" Background="#FF3D9AFA" FontSize="30" Visibility="Visible" Click="btnHint_Click" BorderBrush="Black" BorderThickness="2px" Foreground="White" FontFamily="Berlin Sans FB" Width="166" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <Button x:Name="btnRaad" Content="Raad" Click="btnRaad_Click" IsEnabled="True" Background="#FF3D9AFA" FontFamily="Berlin Sans FB" FontSize="30" Foreground="White" BorderBrush="Black" BorderThickness="2px" HorizontalContentAlignment="Center" Padding="5px" Visibility="Visible" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="250" Margin="12,0,2,2"/>
         </StackPanel>
-        <StackPanel Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Visibility="Hidden">
-            <Label x:Name="lblEindwoord" Content="eindwoord" FontSize="60" FontFamily="Berlin Sans FB" Foreground="White" Visibility="Visible" VerticalContentAlignment="Top" HorizontalContentAlignment="Center"/>
-            <TextBlock x:Name="txtHighscore" TextWrapping="Wrap" Visibility="Visible" Height="129" Width="294" FontFamily="Berlin Sans FB" FontSize="15" Foreground="White" Text="" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+        <StackPanel x:Name="stckEindwoord" Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Visibility="Hidden">
+            <Label x:Name="lblEindwoord" Content="eindwoord" FontSize="60" FontFamily="Berlin Sans FB" Foreground="White" Visibility="Visible" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock x:Name="txtHighscore" TextAlignment="Center" TextWrapping="Wrap" Visibility="Visible" Height="120" Width="294" FontFamily="Berlin Sans FB" FontSize="15" Foreground="White" Text="" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF1A63F3" Offset="0"/>
@@ -139,7 +140,16 @@
                 </TextBlock.Background>
             </TextBlock>
         </StackPanel>
-        <Label x:Name="lblNaam" Content="Toon Van Kimmenade" FontSize="9" Foreground="White" Opacity="0.67" Grid.Row="3" HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="-25,0,0,0" Background="{x:Null}"/>
+        <Label x:Name="lblNaam" Content="Toon Van Kimmenade" FontSize="9" Foreground="White" Opacity="0.67" Grid.Row="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,71,-11,0" Background="{x:Null}" PreviewMouseDown="lblNaam_PreviewMouseDown"/>
+        <TextBlock x:Name="txtHighscore_Copy" TextAlignment="Center" TextWrapping="Wrap" Visibility="Hidden" FontFamily="Berlin Sans FB" FontSize="30" Foreground="White" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Grid.ColumnSpan="3" Margin="0,0,-2,0" Grid.RowSpan="4">
+            <TextBlock.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF1A63F3" Offset="0"/>
+                    <GradientStop Color="#FF243DEB" Offset="1"/>
+                </LinearGradientBrush>
+            </TextBlock.Background>
+        </TextBlock>
+
     </Grid>
 
 </Window>
