@@ -40,6 +40,7 @@ namespace Galgje
         List<string> spelersTop = new List<string>();
         private string[] galgjeWoorden = new string[]
         {
+            // string van woorden voor single player
             "grafeem","tjiftjaf","maquette","kitsch","pochet","convocaat","jakkeren","collaps","zuivel","cesium","voyant","spitten","pancake","gietlepel","karwats","dehydreren",
             "viswijf","flater","cretonne","sennhut","tichel","wijten","cadeau","trotyl","chopper","pielen","vigeren", "vrijuit","dimorf","kolchoz","janhen","plexus","borium","ontweien","quiche","ijverig","mecenaat","falset", "telexen","hieruit", "femelaar","cohesie","exogeen","plebejer","opbouw", "zodiak", "volder","vrezen", "convex","verzenden", "ijstijd","fetisj","gerekt", "necrose","conclaaf","clipper","poppetjes","looikuip","hinten",
             "inbreng", "arbitraal","dewijl","kapzaag","welletjes","bissen","catgut","oxymoron","heerschaar","ureter","kijkbuis","dryade","grofweg", "laudanum","excitatie","revolte","heugel","geroerd","hierbij","glazig","pussen", "liquide","aquarium", "formol","kwelder","zwager","vuldop","halfaap", "hansop", "windvaan","bewogen","vulstuk","efemeer","decisief","omslag","prairie", "schuit","weivlies","ontzeggen","schijn","sousafoon"
@@ -53,7 +54,7 @@ namespace Galgje
 
         private void KeysTonen()
         {
-            //alle keys terug laten tonen na nieuw spel
+            //alle keys terug laten tonen na nieuw spel & keys tonen knop tijdens spel
             a.Visibility = Visibility.Visible;
             b.Visibility = Visibility.Visible;
             c.Visibility = Visibility.Visible;
@@ -83,7 +84,7 @@ namespace Galgje
         }
         private void Hoofdscherm()
         {
-            //hoofdscherm doen verdwijen
+            //hoofdscherm doen verdwijnen
             igmLogo.Visibility = Visibility.Hidden;
             btnSingle.Visibility = Visibility.Hidden;
             btnMulti.Visibility = Visibility.Hidden;
@@ -113,12 +114,13 @@ namespace Galgje
 
         private void lblNaam_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            //extra message box bij label
             MessageBox.Show($"Hangman\n2021 - Made by Toon Van Kimmenade \nPXL 1PROG");
         }
 
         private void Moeilijkheidsgraad()
         {
-            //moeilijkheidsgraad kiezen
+            //moeilijkheidsgraad kiezen in inputbox
             string answer = Microsoft.VisualBasic.Interaction.InputBox($"[E]asy - [M]edium - [H]ard - [V]eteran\nVul een letter in","Moeilijkheidsgraad","m");
             if (answer == "e" || answer == "E")
             {
@@ -224,13 +226,11 @@ namespace Galgje
         {
             if (stckEindwoord.Visibility == Visibility.Hidden)//highscore wordt niet getoond op eindscherm
             {
-                if (spelGespeeld == true)
+                if (spelGespeeld == true) // toont alleen highscore als spel al gespeeld is
                 {
                     txtHighscore_Copy.Visibility = Visibility.Visible;
                 }
             }
-            
-            
         }
 
         private void MnuToetsen_Click(object sender, RoutedEventArgs e)
@@ -273,7 +273,7 @@ namespace Galgje
             if (stckEindwoord.Visibility != Visibility.Visible) //zorgt ervoor dat txt highscore niet verdwijnt op eindscherm
             {
                 txtHighscore_Copy.Visibility = Visibility.Hidden;
-                if (spelGespeeld == false)
+                if (spelGespeeld == false) //standaardwaarden als spel nog niet gespeeld is
                 {
                     txtHighscore.Text = $"Highscore";
                     txtHighscore_Copy.Text = $"Highscore";
@@ -313,7 +313,7 @@ namespace Galgje
         }
         private void btnVerberg_Click(object sender, RoutedEventArgs e)
         {
-            if (txtResultaat.Text == string.Empty & modusChecker == "multi")
+            if (txtResultaat.Text == string.Empty & modusChecker == "multi")// zorgt ervoor dat tijdens multiplayer woord niet leeg kan zijn
             {
                 MessageBox.Show("Geef een woord in.");
             }
@@ -398,6 +398,7 @@ namespace Galgje
         }
         private void ScoreOngeordend()
         {
+            //ongeordende score
             string time = DateTime.Now.ToString("hh:mm:ss");
             naam.Add(spelerNaam);
             score.Add(levensCounter);
@@ -415,7 +416,7 @@ namespace Galgje
         }
         private void Highscore()
         {
-            string currentPlayer = $"Speler {spelerCount}";
+            string currentPlayer = $"Speler {spelerCount}";//speler 1, speler 2 etc.
             if (scoreboardChecker == false)
             {
                 spelerNaam = Microsoft.VisualBasic.Interaction.InputBox($"Vul uw naam in.", "Highscore", currentPlayer);
@@ -516,8 +517,8 @@ namespace Galgje
         }
         private void btnNieuw_Click(object sender, RoutedEventArgs e)
         {
+            //gebeurd als nieuw spel gestart wordt
             txtBack.Visibility = Visibility.Hidden;
-            txtBack.Background = Brushes.Red;
             btnRaad.IsEnabled = false;
             verbergChecker = false;
             keys.IsEnabled = true;
@@ -580,9 +581,9 @@ namespace Galgje
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
+        {   
+            //btnSingle , single player knop
             modusChecker = "single";
-            //btnSingle
             Moeilijkheidsgraad();
             random = rndGetal.Next(100);
             for (int i = 0; i < 100; i++)
@@ -598,11 +599,11 @@ namespace Galgje
             KeysTonen();
             stckRaad.Visibility = Visibility.Visible;
             txtResultaat.Visibility = Visibility.Visible;
-            
         }
 
         private void btnMulti_Click(object sender, RoutedEventArgs e)
         {
+            //multiplayer knop
             modusChecker = "multi";
             Moeilijkheidsgraad();
             Hoofdscherm();
@@ -613,7 +614,7 @@ namespace Galgje
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            
+            //toetsenbord functionaliteit
             Button btn = (Button)sender;
             if (verbergKnopChecker == true)//enkel als woord al ingegeven is
             {
@@ -696,11 +697,6 @@ namespace Galgje
         {
             //backspace knop die niet meer bestaat
             txtResultaat.Text = txtResultaat.Text.Substring(0, txtResultaat.Text.Length - 1);
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            txtResultaat.Text = String.Empty;
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
