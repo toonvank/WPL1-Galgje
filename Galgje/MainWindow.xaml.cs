@@ -191,6 +191,7 @@ namespace Galgje
             eindknoppen.Visibility = Visibility.Visible;
             txtResultaat.Visibility = Visibility.Hidden;
             btnRaad.Visibility = Visibility.Hidden;
+            stckRaad.Visibility = Visibility.Hidden;
             imgLogoaltijdaanwezig.Visibility = Visibility.Hidden;
             stickmanVerdwijn();
         }
@@ -532,6 +533,7 @@ namespace Galgje
             btnExit.Visibility = Visibility.Visible;
             keys.Visibility = Visibility.Hidden;
             btnRaad.Visibility = Visibility.Hidden;
+            stckRaad.Visibility = Visibility.Hidden;
             verloren.Visibility = Visibility.Hidden;
             gewonnen.Visibility = Visibility.Hidden;
             spelerNaam = String.Empty; //naam leegmaken
@@ -572,6 +574,7 @@ namespace Galgje
             Hoofdscherm();
             keys.Visibility = Visibility.Visible;
             KeysTonen();
+            stckRaad.Visibility = Visibility.Visible;
             txtResultaat.Visibility = Visibility.Visible;
             
         }

@@ -67,7 +67,7 @@
 
         <TextBox x:Name="txtResultaat" BorderThickness="0" HorizontalAlignment="Left" Margin="23,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="445" Height="129" FontSize="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Focusable="False" Visibility="Visible" Grid.ColumnSpan="3" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Berlin Sans FB" Grid.RowSpan="3"/>
         <Label x:Name="lblWoord" Content="Geef een geheim woord in" HorizontalAlignment="Center" Margin="31,101,0,0" VerticalAlignment="Top" FontSize="30" HorizontalContentAlignment="Center" Visibility="Hidden" Grid.ColumnSpan="3" FontFamily="Berlin Sans FB" BorderBrush="Black" Background="{x:Null}" Foreground="White" Grid.RowSpan="2"/>
-        <Label x:Name="lblLevens" Content="10 levens" HorizontalAlignment="Left" Margin="0,85,0,0" VerticalAlignment="Top" FontSize="20" Width="490" HorizontalContentAlignment="Center" Visibility="Hidden" FontFamily="Berlin Sans FB" Foreground="White" Height="32" Grid.ColumnSpan="3"/>
+        <Label x:Name="lblLevens" Content="10 levens" HorizontalAlignment="Center" Margin="0,113,-10,0" VerticalAlignment="Top" FontSize="20" HorizontalContentAlignment="Center" Visibility="Hidden" FontFamily="Berlin Sans FB" Foreground="White" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
 
         <!-- Gewonnen/Verloren-->
         <Label x:Name="lblGeraden" Content="Hoera! Je heb hem geraden!" HorizontalAlignment="Left" Margin="54,28,0,0" VerticalAlignment="Top" FontSize="30" Width="430" HorizontalContentAlignment="Center" Visibility="Hidden" Grid.ColumnSpan="3" Height="50"/>
@@ -124,7 +124,7 @@
         </Menu>
         <Image x:Name="verloren" Grid.ColumnSpan="3" Margin="21,15,14,10" Source="/lose.png" Stretch="Fill" Visibility="Hidden" MaxHeight="120" MaxWidth="500"/>
         <Image x:Name="gewonnen" Grid.ColumnSpan="3" Margin="21,18,18,6" Source="/win.png" Stretch="Fill" Visibility="Hidden" MaxWidth="500" MaxHeight="1200"/>
-        <StackPanel Margin="22,0,0,0" Grid.Row="3" Orientation="Horizontal" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden">
+        <StackPanel x:Name="stckRaad" Margin="22,0,0,0" Grid.Row="3" Orientation="Horizontal" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden">
             <Button x:Name="btnHint" Content="Hint" Background="#FF3D9AFA" FontSize="30" Visibility="Visible" Click="btnHint_Click" BorderBrush="Black" BorderThickness="2px" Foreground="White" FontFamily="Berlin Sans FB" Height="47" Width="166" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             <Button x:Name="btnRaad" Content="Raad" Click="btnRaad_Click" IsEnabled="True" Background="#FF3D9AFA" FontFamily="Berlin Sans FB" FontSize="30" Foreground="White" BorderBrush="Black" BorderThickness="2px" HorizontalContentAlignment="Center" Padding="5px" Visibility="Visible" Height="47" Width="278" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </StackPanel>
