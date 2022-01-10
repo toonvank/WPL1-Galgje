@@ -22,7 +22,7 @@ namespace Galgje
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    /// AllowsTransparency="True" aan top van xaml normaal actief, maar dat maakt het niet mogelijk om scaling te testen. zorgt ervoor dat witte bar tevoorschijn komt
+    /// AllowsTransparency="True" aan top van xaml normaal actief, maar dat maakt het niet mogelijk om scaling te testen. zorgt wel ervoor dat witte bar tevoorschijn komt
     public partial class MainWindow : Window
     {
         #region
@@ -121,7 +121,7 @@ namespace Galgje
         private void Moeilijkheidsgraad()
         {
             //moeilijkheidsgraad kiezen in inputbox
-            string answer = Microsoft.VisualBasic.Interaction.InputBox($"[E]asy - [M]edium - [H]ard - [V]eteran\nVul een letter in","Moeilijkheidsgraad","m");
+            string answer = Microsoft.VisualBasic.Interaction.InputBox($"[E]asy - [M]edium - [H]ard - [V]eteran\nVul een letter in\nTijd en levens worden bepaald","Moeilijkheidsgraad","m");
             if (answer == "e" || answer == "E")
             {
                 moeilijkheidsgraad = 21;
@@ -666,7 +666,7 @@ namespace Galgje
                                     hintLetter = randomLetter;
                                 }
                             }
-                            MessageBox.Show(Convert.ToString(hintLetter));
+                            MessageBox.Show($"Letter {Convert.ToString(hintLetter)} zit niet in het woord.");
                         }
                         else
                         {
